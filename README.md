@@ -4,9 +4,10 @@ Outil Python qui surveille les principales pages de vente du **Midea PortaSplit*
 
 ## Fonctionnalités
 
-- Surveillance de 6 revendeurs actifs (Boulanger, Castorama, Optimea, Amazon + Darty/Leroy Merlin quand accessibles)
-- Vérifications **parallèles** (6 en même temps) pour aller plus vite
-- Parsers dédiés WooCommerce, Shopify, Amazon
+- Surveillance de **9 revendeurs** (Boulanger, Castorama, Optimea, Darty, Leroy Merlin, Amazon, Fnac, ManoMano)
+- Source **ClimRadar** pour le stock en ligne (Darty, Leroy Merlin, Amazon, Fnac, ManoMano)
+- **Magasins locaux** : surveillance des points de vente dans un rayon configurable (ex. 100 km autour du 33400)
+- Verification directe pour Boulanger, Castorama, Optimea
 - Alertes **Telegram**, **Discord** ou **ntfy.sh** (push mobile sans bot)
 - Persistance de l'état pour ne pas renvoyer la même alerte
 - Mode boucle (toutes les 5 min par défaut) ou vérification unique
@@ -18,7 +19,16 @@ cd c:\Users\doria\MideaPortaSplit
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+playwright install chromium
 copy .env.example .env
+```
+
+> **Darty / Leroy Merlin / Amazon** : surveilles via [ClimRadar](https://climradar.fr/produit/portasplit), un agrégateur qui met à jour le stock toutes les 10 minutes (y compris le stock par magasin pour Leroy Merlin).
+
+Ou en une commande Windows :
+
+```powershell
+.\setup.ps1
 ```
 
 ## Configuration Telegram
@@ -31,9 +41,22 @@ copy .env.example .env
 TELEGRAM_BOT_TOKEN=123456:ABC...
 TELEGRAM_CHAT_ID=987654321
 CHECK_INTERVAL_MINUTES=5
+POSTAL_CODE=33400
+LOCAL_RADIUS_KM=100
 ```
 
 4. Démarrez une conversation avec votre bot (bouton *Start*) avant la première alerte
+
+**Rapport quotidien à 18h** : un message « le moniteur tourne toujours » est envoyé chaque jour après 18h (configurable via `HEARTBEAT_HOUR` dans `.env`). Test : `python monitor.py --test-heartbeat`
+
+### Critere d'alerte
+
+Vous etes alerte uniquement si **l'une** de ces conditions est remplie :
+
+1. **Magasin** : stock en retrait dans un magasin a moins de `LOCAL_RADIUS_KM` de `POSTAL_CODE` (ex. Castorama Merignac, Leroy Merlin Gradignan)
+2. **Livraison** : stock en ligne avec livraison vers votre code postal (Boulanger, Castorama, Optimea, Darty, Amazon, Fnac, ManoMano)
+
+Le stock Leroy Merlin « national » (ex. magasin a Nice) ne declenche pas d'alerte livraison vers Bordeaux — seulement un magasin proche de chez vous.
 
 **Alternative sans Telegram — ntfy.sh :**
 
@@ -101,11 +124,33 @@ Ou en PowerShell :
 Start-Process python -ArgumentList "monitor.py" -WorkingDirectory "c:\Users\doria\MideaPortaSplit" -WindowStyle Hidden
 ```
 
+## Surveillance 24/7 gratuite (GitHub Actions)
+
+Le workflow `.github/workflows/monitor.yml` lance `python monitor.py --once --no-browser` **toutes les 5 minutes** (minimum GitHub) et envoie les alertes Telegram / ntfy / Discord.
+
+### Secrets à configurer
+
+Repo GitHub → **Settings** → **Secrets and variables** → **Actions** :
+
+| Secret | Obligatoire | Exemple |
+|--------|-------------|---------|
+| `POSTAL_CODE` | oui | `33400` |
+| `TELEGRAM_BOT_TOKEN` | un canal min. | token @BotFather |
+| `TELEGRAM_CHAT_ID` | si Telegram | `987654321` |
+| `NTFY_TOPIC` | si ntfy | `midea-doria-secret` |
+| `LOCAL_RADIUS_KM` | non | `100` |
+| `CONFIRM_STOCK` | non | `true` |
+
+Poussez le repo sur GitHub, puis **Actions** → **PortaSplit Monitor** → **Run workflow** pour tester.
+
+L'état des alertes (`data/state.json`) est conservé via le cache Actions — pas de spam à chaque run.
+
 ## Limites
 
-- Darty et Leroy Merlin bloquent parfois les requêtes automatiques (erreur 403). Surveillez-les aussi manuellement ou activez les alertes Dealabs.
-- Les URLs ManoMano / Bricoman / Weldom peuvent changer ; mettez à jour `config.yaml` si une page renvoie une erreur.
-- Méfiez-vous des prix > 1 200 € (revendeurs tiers) — le prix neuf attendu est **~999 €**.
+- ClimRadar peut indiquer du stock **régional** (ex. Leroy Merlin Nice) — vérifiez la livraison vers votre code postal.
+- Le stock peut varier selon la region (ex. Darty : livraison Paris vs sud).
+- Les URLs ManoMano / Bricoman / Weldom peuvent changer ; mettez `enabled: true` apres verification.
+- Prix neuf attendu : **~999 EUR**. Ignorez les annonces > 1 200 EUR (revendeurs tiers).
 
 ## Structure
 
@@ -117,7 +162,19 @@ MideaPortaSplit/
 ├── data/state.json     # Dernier état connu
 └── src/
     ├── stock_checker.py
+    ├── climradar.py
+    ├── browser_fetcher.py
     ├── notifiers.py
     ├── state.py
     └── main.py
 ```
+
+## App mobile (Expo)
+
+Application iPhone/Android dans [`mobile/`](mobile/) — lancer avec `cd mobile && npx expo start`, puis scanner le QR code avec **Expo Go**.
+
+Voir [`mobile/README.md`](mobile/README.md).
+
+## App iOS native (optionnel)
+
+Version SwiftUI dans [`ios/`](ios/) — nécessite un Mac avec Xcode.

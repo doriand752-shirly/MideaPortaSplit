@@ -3,9 +3,10 @@ $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $Root
 
 if (-not (Test-Path ".venv\Scripts\python.exe")) {
-    Write-Host "Création de l'environnement virtuel..."
+    Write-Host "Creation de l'environnement virtuel..."
     python -m venv .venv
     .\.venv\Scripts\pip install -r requirements.txt -q
+    .\.venv\Scripts\playwright install chromium
 }
 
 if (-not (Test-Path ".env")) {

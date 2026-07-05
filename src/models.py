@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import Enum
 
 
@@ -20,6 +20,7 @@ class Retailer:
     max_price: float | None = None
     enabled: bool = True
     checker: str = "generic"
+    fetch_mode: str = "http"  # http | browser | auto
 
 
 @dataclass

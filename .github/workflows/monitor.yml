@@ -1,0 +1,68 @@
+name: PortaSplit Monitor
+
+on:
+  schedule:
+    # GitHub Actions : minimum toutes les 5 minutes
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry-run (pas de notification)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: portasplit-monitor
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      POSTAL_CODE: ${{ secrets.POSTAL_CODE }}
+      LOCAL_RADIUS_KM: ${{ secrets.LOCAL_RADIUS_KM }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      CONFIRM_STOCK: ${{ secrets.CONFIRM_STOCK }}
+      HEARTBEAT_ENABLED: ${{ secrets.HEARTBEAT_ENABLED }}
+      HEARTBEAT_HOUR: ${{ secrets.HEARTBEAT_HOUR }}
+      HEARTBEAT_TIMEZONE: Europe/Paris
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Restore alert state
+        uses: actions/cache@v4
+        with:
+          path: data/state.json
+          key: portasplit-monitor-state-${{ github.repository }}
+
+      - name: Ensure data directory
+        run: mkdir -p data
+
+      - name: Run stock check
+        run: |
+          ARGS=(--once --no-browser)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
+            ARGS+=(--dry-run)
+          fi
+          python monitor.py "${ARGS[@]}"
+
+      - name: Save alert state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/state.json
+          key: portasplit-monitor-state-${{ github.repository }}

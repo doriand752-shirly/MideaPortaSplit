@@ -26,8 +26,8 @@ class StateStore:
             encoding="utf-8",
         )
 
-    def get_last_status(self, retailer_id: str) -> str | None:
-        entry = self._data.get(retailer_id)
+    def get_last_status(self, key: str) -> str | None:
+        entry = self._data.get(key)
         return entry.get("status") if entry else None
 
     def update(self, result: StockResult) -> bool:
@@ -48,3 +48,41 @@ class StateStore:
             "checked_at": now,
         }
         return became_available
+
+    def update_local_store(self, store_key: str, in_stock: bool, detail: str, url: str) -> bool:
+        previous = self.get_last_status(store_key)
+        now = datetime.now(timezone.utc).isoformat()
+        status = StockStatus.IN_STOCK.value if in_stock else StockStatus.OUT_OF_STOCK.value
+        became_available = in_stock and previous != StockStatus.IN_STOCK.value
+        self._data[store_key] = {
+            "status": status,
+            "detail": detail,
+            "url": url,
+            "checked_at": now,
+        }
+        return became_available
+
+    def mark_missing_offers(
+        self,
+        active_keys: set[str],
+        prefixes: tuple[str, ...] = ("local:", "livraison:"),
+    ) -> None:
+        for key, entry in list(self._data.items()):
+            if not any(key.startswith(p) for p in prefixes):
+                continue
+            if key in active_keys:
+                continue
+            if entry.get("status") == "in_stock":
+                self.update_local_store(key, False, "plus disponible", entry.get("url", ""))
+
+    def get_meta(self, key: str) -> str | None:
+        entry = self._data.get(key)
+        if isinstance(entry, dict):
+            return entry.get("value")
+        if isinstance(entry, str):
+            return entry
+        return None
+
+    def set_meta(self, key: str, value: str) -> None:
+        now = datetime.now(timezone.utc).isoformat()
+        self._data[key] = {"value": value, "updated_at": now}

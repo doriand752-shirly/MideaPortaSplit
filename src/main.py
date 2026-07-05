@@ -8,8 +8,15 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from .availability import (
+    build_actionable_offers,
+    format_actionable_summary,
+)
+from .heartbeat import send_daily_heartbeat
+from .local_stores import fetch_local_stores, local_config_from_env
 from .models import StockStatus
-from .notifiers import format_summary, notify_stock_available
+from .notifiers import notify_actionable_offer, test_telegram
+from .verification import confirm_actionable_offer
 from .state import StateStore
 from .stock_checker import check_all_retailers, load_retailers
 
@@ -25,74 +32,146 @@ def run_check(
     dry_run: bool = False,
     verbose: bool = True,
     retailer_filter: str | None = None,
+    use_browser: bool = True,
+    postal_code: str | None = None,
+    radius_km: float | None = None,
 ) -> list:
+    configured_postal, configured_radius = local_config_from_env()
+    postal_code = postal_code or configured_postal
+    radius_km = radius_km if radius_km is not None else configured_radius
+
     retailers = load_retailers(config_path)
     if retailer_filter:
         retailers = [r for r in retailers if r.id == retailer_filter]
         if not retailers:
-            print(f"Revendeur inconnu ou désactivé : {retailer_filter}", file=sys.stderr)
+            print(f"Revendeur inconnu ou desactive : {retailer_filter}", file=sys.stderr)
             return []
 
     if verbose:
-        print(f"Vérification de {len(retailers)} revendeur(s) en parallèle...", flush=True)
+        print("Verification en ligne + magasins locaux...", flush=True)
+        if postal_code:
+            print(f"  Zone : {postal_code} (rayon {radius_km:.0f} km)", flush=True)
 
-    results = check_all_retailers(retailers)
+    online_results = check_all_retailers(retailers, use_browser=use_browser)
+
+    local_stores = []
+    if postal_code:
+        try:
+            local_stores = fetch_local_stores(postal_code, radius_km=radius_km)
+            if verbose and not local_stores:
+                print(
+                    "  Magasins : ClimRadar ne renvoie plus de donnees (rendu JavaScript). "
+                    "Stock en ligne verifie via sites revendeurs.",
+                    flush=True,
+                )
+        except Exception as exc:
+            print(f"Erreur magasins locaux : {exc}", flush=True)
+
+    actionable = build_actionable_offers(online_results, local_stores, postal_code or "?")
     store = StateStore(state_path)
 
-    for result in results:
+    for offer in actionable:
         if dry_run:
             continue
 
-        became_available = store.update(result)
-        if became_available:
-            channels = notify_stock_available(result)
-            if channels:
-                print(
-                    f"[ALERTE] Envoyee ({', '.join(channels)}) : {result.retailer.name}",
-                    flush=True,
-                )
-            else:
-                print(
-                    f"[STOCK] {result.retailer.name} — configurez Telegram dans .env",
-                    flush=True,
-                )
+        already_alerted = store.get_last_status(offer.state_key) == StockStatus.IN_STOCK.value
+        if already_alerted:
+            store.update_local_store(offer.state_key, True, offer.detail, offer.url)
+            continue
+
+        if postal_code and not confirm_actionable_offer(
+            offer,
+            postal_code=postal_code,
+            radius_km=radius_km,
+            retailers=retailers,
+            use_browser=use_browser,
+        ):
+            print(
+                f"[WARN] {offer.retailer_name} : stock non confirme, "
+                f"nouvel essai au prochain cycle",
+                flush=True,
+            )
+            continue
+
+        channels = notify_actionable_offer(offer, postal_code or "?")
+        if not channels:
+            print(
+                f"[ERREUR] Notification echouee pour {offer.retailer_name} "
+                f"— nouvel essai au prochain cycle",
+                flush=True,
+            )
+            continue
+
+        store.update_local_store(offer.state_key, True, offer.detail, offer.url)
+        label = "MAGASIN" if offer.kind == "magasin" else "LIVRAISON"
+        print(
+            f"[ALERTE {label}] {offer.retailer_name} ({', '.join(channels)})",
+            flush=True,
+        )
 
     if not dry_run:
+        store.mark_missing_offers({o.state_key for o in actionable})
         store.save()
+
+        hb_channels = send_daily_heartbeat(
+            store,
+            postal_code=postal_code,
+            actionable_count=len(actionable),
+        )
+        if hb_channels and verbose:
+            print(f"[HEARTBEAT] Rapport quotidien envoye ({', '.join(hb_channels)})", flush=True)
 
     if verbose:
         print()
-        print(format_summary(results))
-        available = [r for r in results if r.status == StockStatus.IN_STOCK]
-        errors = [r for r in results if r.status == StockStatus.ERROR]
-        if available:
-            print()
-            print(f"{len(available)} revendeur(s) avec stock detecte !")
+        if postal_code:
+            print(
+                format_actionable_summary(
+                    actionable,
+                    online_results,
+                    local_stores,
+                    postal_code,
+                    radius_km,
+                )
+            )
         else:
+            from .notifiers import format_summary
+            print(format_summary(online_results))
             print()
-            print("Aucun stock detecte pour l'instant.")
-        if errors:
-            print(f"{len(errors)} erreur(s) reseau — verifiez les URLs dans config.yaml")
+            print("Definissez POSTAL_CODE dans .env pour magasins + livraison ciblee.")
 
-    return results
+    return online_results
 
 
 def main(argv: list[str] | None = None) -> int:
     load_dotenv(ROOT / ".env")
 
     parser = argparse.ArgumentParser(
-        description="Surveille la disponibilité du Midea PortaSplit chez les revendeurs français."
+        description="Surveille le Midea PortaSplit : magasin proche OU livraison."
     )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--state", type=Path, default=DEFAULT_STATE)
-    parser.add_argument("--once", action="store_true", help="Une vérification puis quitter")
+    parser.add_argument("--once", action="store_true", help="Une verification puis quitter")
     parser.add_argument("--dry-run", action="store_true", help="Sans sauvegarde ni notification")
-    parser.add_argument("--retailer", help="Vérifier un seul revendeur (ex: darty)")
+    parser.add_argument("--retailer", help="Verifier un seul revendeur (ex: darty)")
+    parser.add_argument("--no-browser", action="store_true", help="Desactiver Playwright")
+    parser.add_argument(
+        "--local-only",
+        action="store_true",
+        help="Ignorer la verification en ligne (magasins uniquement)",
+    )
+    parser.add_argument("--postal-code", help="Code postal (ex: 33400)")
+    parser.add_argument("--radius-km", type=float, help="Rayon magasins en km")
+    parser.add_argument("--test-telegram", action="store_true", help="Test Telegram")
+    parser.add_argument(
+        "--test-heartbeat",
+        action="store_true",
+        help="Envoyer le message quotidien maintenant",
+    )
     parser.add_argument(
         "--interval",
         type=int,
-        default=int(os.getenv("CHECK_INTERVAL_MINUTES", "5")),
-        help="Intervalle en minutes (mode boucle)",
+        default=int(os.getenv("CHECK_INTERVAL_MINUTES", "2")),
+        help="Intervalle en minutes",
     )
     args = parser.parse_args(argv)
 
@@ -100,24 +179,69 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Config introuvable : {args.config}", file=sys.stderr)
         return 1
 
+    if args.test_telegram:
+        ok, message = test_telegram()
+        print(message)
+        return 0 if ok else 1
+
+    if args.test_heartbeat:
+        store = StateStore(args.state)
+        channels = send_daily_heartbeat(
+            store,
+            postal_code=args.postal_code or os.getenv("POSTAL_CODE"),
+            actionable_count=0,
+            force=True,
+        )
+        if channels:
+            print(f"Heartbeat envoye ({', '.join(channels)})")
+            return 0
+        print("Aucun canal configure (Telegram / Discord / ntfy)")
+        return 1
+
+    if args.local_only:
+        args.dry_run = args.dry_run  # noqa: B018 — keep flag
+        # Magasins seulement : on passe un filtre vide en ligne
+        configured_postal, configured_radius = local_config_from_env()
+        postal = args.postal_code or configured_postal
+        if not postal:
+            print("POSTAL_CODE requis", file=sys.stderr)
+            return 1
+        from .local_stores import fetch_local_stores
+        from .availability import build_actionable_offers
+
+        stores = fetch_local_stores(postal, radius_km=args.radius_km or configured_radius)
+        offers = build_actionable_offers([], stores, postal)
+        print(format_actionable_summary(offers, [], stores, postal, args.radius_km or configured_radius))
+        return 0
+
     if args.once or args.dry_run:
         run_check(
             args.config,
             args.state,
             dry_run=args.dry_run,
             retailer_filter=args.retailer,
+            use_browser=not args.no_browser,
+            postal_code=args.postal_code,
+            radius_km=args.radius_km,
         )
         return 0
 
     print(
-        f"Surveillance démarrée — toutes les {args.interval} min. Ctrl+C pour arrêter.",
+        f"Surveillance demarree — toutes les {args.interval} min. Ctrl+C pour arreter.",
         flush=True,
     )
     while True:
         try:
-            run_check(args.config, args.state, retailer_filter=args.retailer)
+            run_check(
+                args.config,
+                args.state,
+                retailer_filter=args.retailer,
+                use_browser=not args.no_browser,
+                postal_code=args.postal_code,
+                radius_km=args.radius_km,
+            )
         except KeyboardInterrupt:
-            print("\nArrêt.")
+            print("\nArret.")
             return 0
         except Exception as exc:
             print(f"Erreur inattendue : {exc}", flush=True)
