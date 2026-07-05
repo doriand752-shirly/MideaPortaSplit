@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-05T06:45:47.037974+00:00",
+  "checkedAt": "2026-07-05T06:46:50.510531+00:00",
   "postalCode": "33400",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -33,15 +33,15 @@
       "id": "boulanger",
       "retailerName": "Boulanger",
       "inStock": false,
-      "price": 999.0,
+      "price": null,
       "url": "https://www.boulanger.com/ref/1216685",
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
         "direct"
       ],
-      "sourceDetail": "Indicateur: « en rupture »",
-      "checkError": false
+      "sourceDetail": "HTTPSConnectionPool(host='www.boulanger.com', port=443): Read timed out. (read timeout=12)",
+      "checkError": true
     },
     {
       "id": "castorama",
@@ -75,21 +75,21 @@
       "id": "optimea",
       "retailerName": "Optimea (distributeur officiel)",
       "inStock": false,
-      "price": 999.0,
+      "price": null,
       "url": "https://www.optimea.fr/product/climatiseur-split-mobile-midea/",
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
         "direct"
       ],
-      "sourceDetail": "WooCommerce: rupture de stock",
-      "checkError": false
+      "sourceDetail": "403 Client Error: Forbidden for url: https://www.optimea.fr/product/climatiseur-split-mobile-midea/",
+      "checkError": true
     },
     {
       "id": "amazon",
       "retailerName": "Amazon France",
       "inStock": false,
-      "price": 899.0,
+      "price": 769.0,
       "url": "https://www.amazon.fr/dp/B0D3PP64JS",
       "deliveryEligible": false,
       "lastUpdateMin": null,
@@ -97,7 +97,7 @@
         "climradar",
         "direct"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Amazon: revendeurs tiers uniquement (pas le buybox)",
+      "sourceDetail": "ClimRadar: rupture · Site: Amazon buybox: indisponible",
       "checkError": false
     },
     {
