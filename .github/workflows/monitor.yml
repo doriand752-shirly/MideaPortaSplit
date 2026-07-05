@@ -1,5 +1,6 @@
 name: PortaSplit Monitor
 
+# Surveillance stock toutes les 5 min + declenchement manuel
 on:
   schedule:
     # GitHub Actions : minimum toutes les 5 minutes
