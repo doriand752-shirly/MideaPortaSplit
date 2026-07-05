@@ -596,7 +596,7 @@ def check_all_retailers(
                 and direct_by_id[r.id].status == StockStatus.ERROR
                 and r.id in PROTECTED_RETAILER_IDS
             ]
-            if need_browser_retry and is_playwright_available():
+            if need_browser_retry and use_browser and is_playwright_available():
                 with BrowserFetcher() as browser:
                     for retailer in need_browser_retry:
                         direct_by_id[retailer.id] = check_retailer_direct(
