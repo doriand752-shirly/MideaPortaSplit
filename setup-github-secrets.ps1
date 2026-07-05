@@ -1,11 +1,11 @@
 # Copie les secrets du .env local vers GitHub Actions (une seule fois).
-# Prérequis : gh auth login
+# Prerequis : gh auth login
 
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $Root
 
 if (-not (Test-Path ".env")) {
-    Write-Error "Fichier .env introuvable. Copiez .env.example en .env et remplissez-le."
+    Write-Error "Fichier .env introuvable."
     exit 1
 }
 
@@ -42,17 +42,17 @@ foreach ($key in $keys) {
     Write-Host "Secret GitHub : $key"
     $value | gh secret set $key
     if ($LASTEXITCODE -ne 0) {
-        Write-Error "Echec pour $key — lancez 'gh auth login' puis réessayez."
+        Write-Error "Echec pour $key"
         exit 1
     }
     $set++
 }
 
 if ($set -eq 0) {
-    Write-Error "Aucun secret trouvé dans .env"
+    Write-Error "Aucun secret trouve dans .env"
     exit 1
 }
 
 Write-Host ""
-Write-Host "OK — $set secret(s) configuré(s) sur GitHub."
-Write-Host "Poussez le repo si besoin, puis Actions -> PortaSplit Monitor -> Run workflow"
+Write-Host "OK - $set secret(s) configures sur GitHub."
+Write-Host "Actions -> PortaSplit Monitor -> Run workflow"
