@@ -17,6 +17,7 @@ from .local_stores import fetch_local_stores, local_config_from_env
 from .models import StockStatus
 from .notifiers import notify_actionable_offer, test_telegram
 from .verification import confirm_actionable_offer
+from .snapshot_export import build_snapshot, write_snapshot
 from .state import StateStore
 from .stock_checker import check_all_retailers, load_retailers
 
@@ -35,6 +36,7 @@ def run_check(
     use_browser: bool = True,
     postal_code: str | None = None,
     radius_km: float | None = None,
+    export_path: Path | None = None,
 ) -> list:
     configured_postal, configured_radius = local_config_from_env()
     postal_code = postal_code or configured_postal
@@ -139,6 +141,18 @@ def run_check(
             print()
             print("Definissez POSTAL_CODE dans .env pour magasins + livraison ciblee.")
 
+    if export_path and postal_code:
+        payload = build_snapshot(
+            online_results=online_results,
+            local_stores=local_stores,
+            actionable=actionable,
+            postal_code=postal_code,
+            radius_km=radius_km or 100.0,
+        )
+        write_snapshot(export_path, payload)
+        if verbose:
+            print(f"Snapshot exporte : {export_path}", flush=True)
+
     return online_results
 
 
@@ -166,6 +180,12 @@ def main(argv: list[str] | None = None) -> int:
         "--test-heartbeat",
         action="store_true",
         help="Envoyer le message quotidien maintenant",
+    )
+    parser.add_argument(
+        "--export",
+        type=Path,
+        metavar="PATH",
+        help="Exporter un snapshot JSON (app mobile / GitHub Actions)",
     )
     parser.add_argument(
         "--interval",
@@ -223,6 +243,7 @@ def main(argv: list[str] | None = None) -> int:
             use_browser=not args.no_browser,
             postal_code=args.postal_code,
             radius_km=args.radius_km,
+            export_path=args.export,
         )
         return 0
 

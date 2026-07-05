@@ -1,3 +1,5 @@
+import { CLOUD_MONITOR_INTERVAL_MIN } from './constants/cloudMonitor';
+
 export type StockKind = 'magasin' | 'livraison';
 
 export interface OnlineOffer {
@@ -31,7 +33,7 @@ export interface LocalStoreOffer {
   stockNote?: string;
 }
 
-export type DataMode = 'hybrid' | 'independent' | 'climradar';
+export type DataMode = 'hybrid' | 'independent' | 'climradar' | 'cloud';
 
 export interface ActionableOffer {
   id: string;
@@ -65,18 +67,21 @@ export interface AppSettings {
   backgroundFetchEnabled: boolean;
   directCheckEnabled: boolean;
   climradarEnabled: boolean;
+  /** Lit le snapshot GitHub Actions (meme source que Telegram). */
+  cloudMonitorEnabled: boolean;
 }
 
 export const DEFAULT_SETTINGS: AppSettings = {
   postalCode: '33400',
   radiusKm: 200,
-  intervalMinutes: 2,
+  intervalMinutes: CLOUD_MONITOR_INTERVAL_MIN,
   confirmStock: true,
   monitoringEnabled: true,
   showOutOfStock: true,
   backgroundFetchEnabled: true,
   directCheckEnabled: true,
   climradarEnabled: true,
+  cloudMonitorEnabled: true,
 };
 
 export function formatLastUpdate(min: number | null): string {

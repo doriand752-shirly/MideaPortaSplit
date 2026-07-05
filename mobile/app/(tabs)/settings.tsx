@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 
+import { CLOUD_MONITOR_INTERVAL_MIN } from '@/src/constants/cloudMonitor';
 import { allowedDepartments, departmentLabel } from '@/src/constants/departments';
 import {
   backgroundFetchStatusLabel,
@@ -81,8 +82,25 @@ export default function SettingsScreen() {
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.title}>Vérifications</Text>
-        <Text style={styles.label}>Intervalle (app ouverte) : {settings.intervalMinutes} min</Text>
+        <Text style={styles.title}>Moniteur cloud</Text>
+        <View style={styles.switchRow}>
+          <Text style={styles.label}>Utiliser GitHub Actions (Telegram)</Text>
+          <Switch
+            value={settings.cloudMonitorEnabled}
+            onValueChange={(v) => update('cloudMonitorEnabled', v)}
+          />
+        </View>
+        <Text style={styles.hint}>
+          Lit le snapshot publie toutes les {CLOUD_MONITOR_INTERVAL_MIN} min — meme source que
+          les alertes Telegram. Fallback local si indisponible.
+        </Text>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.title}>Vérifications locales</Text>
+        <Text style={styles.label}>
+          Intervalle (app ouverte) : {settings.intervalMinutes} min
+        </Text>
         <View style={styles.stepper}>
           <Pressable
             style={styles.stepBtn}

@@ -65,15 +65,25 @@ export default function StockScreen() {
             <Row
               label="Source données"
               value={
-                snapshot.dataMode === 'independent'
-                  ? 'Autonome (sites revendeurs)'
-                  : snapshot.dataMode === 'climradar'
-                    ? 'ClimRadar'
-                    : 'Hybride'
+                snapshot.dataMode === 'cloud'
+                  ? 'GitHub Actions (cloud)'
+                  : snapshot.dataMode === 'independent'
+                    ? 'Autonome (sites revendeurs)'
+                    : snapshot.dataMode === 'climradar'
+                      ? 'ClimRadar'
+                      : 'Hybride'
               }
             />
           </>
         )}
+        {snapshot?.dataMode === 'cloud' && (
+          <Text style={styles.hint}>
+            Données synchronisées avec le moniteur cloud (Telegram) — MAJ toutes les 10 min.
+          </Text>
+        )}
+        {snapshot?.errorMessage ? (
+          <Text style={styles.hint}>{snapshot.errorMessage}</Text>
+        ) : null}
         {snapshot?.dataMode === 'independent' && (
           <Text style={styles.hint}>
             ClimRadar indisponible — l’app interroge directement les sites revendeurs.

@@ -126,7 +126,7 @@ Start-Process python -ArgumentList "monitor.py" -WorkingDirectory "c:\Users\dori
 
 ## Surveillance 24/7 gratuite (GitHub Actions)
 
-Le workflow `.github/workflows/monitor.yml` lance `python monitor.py --once --no-browser` **toutes les 5 minutes** (minimum GitHub) et envoie les alertes Telegram / ntfy / Discord.
+Le workflow `.github/workflows/monitor.yml` lance `python monitor.py --once --no-browser` **toutes les 10 minutes** et publie `data/snapshot.json` pour l'app mobile.
 
 ### Secrets à configurer
 

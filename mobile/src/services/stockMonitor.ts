@@ -1,4 +1,5 @@
 import { allowedDepartments, departmentLabel } from '../constants/departments';
+import { adaptCloudSnapshot, fetchCloudSnapshot } from './cloudSnapshot';
 import { fetchClimradarOnlineOffers } from './climradar';
 import { checkAllDirect } from './directChecker';
 import { fetchLocalStores, filterStores } from './localStores';
@@ -79,7 +80,7 @@ async function resolveOnlineOffers(settings: AppSettings): Promise<{
   return { offers, climradarAvailable };
 }
 
-async function performCheck(settings: AppSettings) {
+async function performLocalCheck(settings: AppSettings) {
   const [{ offers: onlineOffers, climradarAvailable }, localResult] = await Promise.all([
     resolveOnlineOffers(settings),
     fetchLocalStores(settings.postalCode, settings.radiusKm, {
@@ -107,7 +108,35 @@ async function performCheck(settings: AppSettings) {
     monitoredDepartments,
     dataMode,
     climradarAvailable,
+    checkedAt: new Date().toISOString(),
+    errorMessage: undefined as string | undefined,
   };
+}
+
+async function performCloudCheck(settings: AppSettings) {
+  const cloud = await fetchCloudSnapshot();
+  if (!cloud) return null;
+
+  const adapted = adaptCloudSnapshot(cloud, settings);
+  return {
+    onlineOffers: adapted.onlineOffers,
+    localStores: adapted.localStores,
+    allLocal: cloud.localStores,
+    actionable: adapted.actionable,
+    monitoredDepartments: adapted.monitoredDepartments,
+    dataMode: 'cloud' as DataMode,
+    climradarAvailable: adapted.climradarAvailable ?? true,
+    checkedAt: adapted.checkedAt,
+    errorMessage: adapted.errorMessage,
+  };
+}
+
+async function performCheck(settings: AppSettings) {
+  if (settings.cloudMonitorEnabled) {
+    const cloud = await performCloudCheck(settings);
+    if (cloud) return cloud;
+  }
+  return performLocalCheck(settings);
 }
 
 export async function runStockCheck(
@@ -116,7 +145,7 @@ export async function runStockCheck(
   const first = await performCheck(settings);
   let actionable = first.actionable;
 
-  if (settings.confirmStock && actionable.length > 0) {
+  if (settings.confirmStock && first.dataMode !== 'cloud' && actionable.length > 0) {
     await sleep(3000);
     const second = await performCheck(settings);
     const secondIds = new Set(second.actionable.map((o) => o.id));
@@ -132,7 +161,7 @@ export async function runStockCheck(
   await saveAlertedKeys(pruned);
 
   const snapshot: MonitorSnapshot = {
-    checkedAt: new Date().toISOString(),
+    checkedAt: first.checkedAt,
     postalCode: settings.postalCode,
     radiusKm: settings.radiusKm,
     monitoredDepartments: first.monitoredDepartments,
@@ -141,6 +170,7 @@ export async function runStockCheck(
     actionable,
     dataMode: first.dataMode,
     climradarAvailable: first.climradarAvailable,
+    errorMessage: first.errorMessage,
   };
 
   return { snapshot, newOffers };

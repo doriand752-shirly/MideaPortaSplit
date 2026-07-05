@@ -1,10 +1,9 @@
 name: PortaSplit Monitor
 
-# Surveillance stock toutes les 5 min + declenchement manuel
+# Surveillance stock toutes les 10 min + declenchement manuel
 on:
   schedule:
-    # GitHub Actions : minimum toutes les 5 minutes
-    - cron: "*/5 * * * *"
+    - cron: "*/10 * * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -15,6 +14,9 @@ on:
 concurrency:
   group: portasplit-monitor
   cancel-in-progress: false
+
+permissions:
+  contents: write
 
 jobs:
   check:
@@ -55,11 +57,20 @@ jobs:
 
       - name: Run stock check
         run: |
-          ARGS=(--once --no-browser)
+          ARGS=(--once --no-browser --export data/snapshot.json)
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
             ARGS+=(--dry-run)
           fi
           python monitor.py "${ARGS[@]}"
+
+      - name: Publish snapshot for mobile app
+        if: github.event_name != 'workflow_dispatch' || inputs.dry_run != true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/snapshot.json
+          git diff --staged --quiet || git commit -m "chore: update stock snapshot [skip ci]"
+          git push
 
       - name: Save alert state
         if: always()
