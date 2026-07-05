@@ -4,7 +4,7 @@ import { AppState, AppStateStatus } from 'react-native';
 import { notifyOffers, requestNotificationPermissions } from '../services/notifications';
 import { registerBackgroundFetch } from '../services/backgroundFetch';
 import { loadSettings } from '../services/settings';
-import { runStockCheck } from '../services/stockMonitor';
+import { runStockCheck, type StockCheckOptions } from '../services/stockMonitor';
 import type { AppSettings, MonitorSnapshot } from '../types';
 
 export function useStockMonitor() {
@@ -15,22 +15,30 @@ export function useStockMonitor() {
   const [error, setError] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const check = useCallback(async (currentSettings?: AppSettings) => {
-    const active = currentSettings ?? settings ?? (await loadSettings());
-    setChecking(true);
-    setError(null);
-    try {
-      const { snapshot: next, newOffers } = await runStockCheck(active);
-      setSnapshot(next);
-      if (newOffers.length > 0) {
-        await notifyOffers(newOffers);
+  const check = useCallback(
+    async (currentSettings?: AppSettings, options?: StockCheckOptions) => {
+      const active = currentSettings ?? settings ?? (await loadSettings());
+      setChecking(true);
+      setError(null);
+      try {
+        const { snapshot: next, newOffers } = await runStockCheck(active, options);
+        setSnapshot(next);
+        if (newOffers.length > 0) {
+          await notifyOffers(newOffers);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Erreur inconnue');
+      } finally {
+        setChecking(false);
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erreur inconnue');
-    } finally {
-      setChecking(false);
-    }
-  }, [settings]);
+    },
+    [settings],
+  );
+
+  const checkLocalOnce = useCallback(async () => {
+    const active = settings ?? (await loadSettings());
+    await check(active, { forceLocal: true });
+  }, [check, settings]);
 
   const start = useCallback(async () => {
     const loaded = await loadSettings();
@@ -83,6 +91,7 @@ export function useStockMonitor() {
     monitoring,
     error,
     check,
+    checkLocalOnce,
     start,
     stop,
     setMonitoring,

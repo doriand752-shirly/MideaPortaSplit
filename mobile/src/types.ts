@@ -65,10 +65,11 @@ export interface AppSettings {
   monitoringEnabled: boolean;
   showOutOfStock: boolean;
   backgroundFetchEnabled: boolean;
+  /** Mode local permanent : interroge les sites depuis l'app (desactive par defaut). */
+  forceLocalCheck: boolean;
+  /** Options utilisees uniquement en mode local force. */
   directCheckEnabled: boolean;
   climradarEnabled: boolean;
-  /** Lit le snapshot GitHub Actions (meme source que Telegram). */
-  cloudMonitorEnabled: boolean;
 }
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -79,9 +80,9 @@ export const DEFAULT_SETTINGS: AppSettings = {
   monitoringEnabled: true,
   showOutOfStock: true,
   backgroundFetchEnabled: true,
+  forceLocalCheck: false,
   directCheckEnabled: true,
   climradarEnabled: true,
-  cloudMonitorEnabled: true,
 };
 
 export function formatLastUpdate(min: number | null): string {

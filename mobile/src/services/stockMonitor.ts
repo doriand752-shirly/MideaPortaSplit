@@ -14,6 +14,11 @@ import type {
   OnlineOffer,
 } from '../types';
 
+export interface StockCheckOptions {
+  /** Une seule verification locale (bouton manuel), ignore le mode snapshot. */
+  forceLocal?: boolean;
+}
+
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -115,7 +120,11 @@ async function performLocalCheck(settings: AppSettings) {
 
 async function performCloudCheck(settings: AppSettings) {
   const cloud = await fetchCloudSnapshot();
-  if (!cloud) return null;
+  if (!cloud) {
+    throw new Error(
+      'Snapshot cloud indisponible ou expiré. GitHub Actions met à jour toutes les 10 min.',
+    );
+  }
 
   const adapted = adaptCloudSnapshot(cloud, settings);
   return {
@@ -131,23 +140,25 @@ async function performCloudCheck(settings: AppSettings) {
   };
 }
 
-async function performCheck(settings: AppSettings) {
-  if (settings.cloudMonitorEnabled) {
-    const cloud = await performCloudCheck(settings);
-    if (cloud) return cloud;
+async function performCheck(settings: AppSettings, options?: StockCheckOptions) {
+  const useLocal = options?.forceLocal === true || settings.forceLocalCheck;
+  if (useLocal) {
+    return performLocalCheck(settings);
   }
-  return performLocalCheck(settings);
+  return performCloudCheck(settings);
 }
 
 export async function runStockCheck(
   settings: AppSettings,
+  options?: StockCheckOptions,
 ): Promise<{ snapshot: MonitorSnapshot; newOffers: ActionableOffer[] }> {
-  const first = await performCheck(settings);
+  const useLocal = options?.forceLocal === true || settings.forceLocalCheck;
+  const first = await performCheck(settings, options);
   let actionable = first.actionable;
 
-  if (settings.confirmStock && first.dataMode !== 'cloud' && actionable.length > 0) {
+  if (useLocal && settings.confirmStock && actionable.length > 0) {
     await sleep(3000);
-    const second = await performCheck(settings);
+    const second = await performCheck(settings, options);
     const secondIds = new Set(second.actionable.map((o) => o.id));
     actionable = actionable.filter((o) => secondIds.has(o.id));
   }

@@ -5,11 +5,23 @@ import { AppSettings, DEFAULT_SETTINGS } from '../types';
 const SETTINGS_KEY = 'portasplit.settings';
 const ALERTED_KEY = 'portasplit.alerted';
 
+type StoredSettings = Partial<AppSettings> & { cloudMonitorEnabled?: boolean };
+
+function migrateSettings(parsed: StoredSettings): AppSettings {
+  const merged: AppSettings = { ...DEFAULT_SETTINGS, ...parsed };
+
+  if (parsed.cloudMonitorEnabled !== undefined && parsed.forceLocalCheck === undefined) {
+    merged.forceLocalCheck = !parsed.cloudMonitorEnabled;
+  }
+
+  return merged;
+}
+
 export async function loadSettings(): Promise<AppSettings> {
   try {
     const raw = await AsyncStorage.getItem(SETTINGS_KEY);
     if (!raw) return { ...DEFAULT_SETTINGS };
-    return { ...DEFAULT_SETTINGS, ...JSON.parse(raw) };
+    return migrateSettings(JSON.parse(raw) as StoredSettings);
   } catch {
     return { ...DEFAULT_SETTINGS };
   }

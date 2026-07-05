@@ -7,7 +7,7 @@ import { runStockCheck } from './stockMonitor';
 
 export const BACKGROUND_FETCH_TASK = 'portasplit-background-fetch';
 
-/** Doit être défini au chargement du module (hors composants React). */
+/** Lit le snapshot GitHub (pas d'appels revendeurs). Notifie si nouveau stock. */
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
   try {
     const settings = await loadSettings();

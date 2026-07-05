@@ -78,7 +78,8 @@ export default function StockScreen() {
         )}
         {snapshot?.dataMode === 'cloud' && (
           <Text style={styles.hint}>
-            Données synchronisées avec le moniteur cloud (Telegram) — MAJ toutes les 10 min.
+            Snapshot cloud uniquement — Telegram 24/7, notif app si iOS réveille l’arrière-plan
+            (même snapshot, ~10 min).
           </Text>
         )}
         {snapshot?.errorMessage ? (

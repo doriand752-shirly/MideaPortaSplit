@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -17,6 +18,7 @@ import {
 } from '@/src/services/backgroundFetch';
 import { notifyTest, requestNotificationPermissions } from '@/src/services/notifications';
 import { loadSettings, saveSettings } from '@/src/services/settings';
+import { runStockCheck } from '@/src/services/stockMonitor';
 import type { AppSettings } from '@/src/types';
 import { DEFAULT_SETTINGS } from '@/src/types';
 
@@ -24,6 +26,7 @@ export default function SettingsScreen() {
   const [settings, setSettings] = useState<AppSettings>(DEFAULT_SETTINGS);
   const [saved, setSaved] = useState<string | null>(null);
   const [bgStatus, setBgStatus] = useState<string>('…');
+  const [localChecking, setLocalChecking] = useState(false);
 
   useEffect(() => {
     loadSettings().then(setSettings);
@@ -51,6 +54,19 @@ export default function SettingsScreen() {
     setSaved('Notification de test envoyée');
   };
 
+  const onLocalOnce = async () => {
+    setLocalChecking(true);
+    setSaved(null);
+    try {
+      await runStockCheck(settings, { forceLocal: true });
+      setSaved('Vérification locale terminée — rafraîchissez l’onglet Stock');
+    } catch {
+      setSaved('Échec vérification locale');
+    } finally {
+      setLocalChecking(false);
+    }
+  };
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.card}>
@@ -76,35 +92,32 @@ export default function SettingsScreen() {
             <Text style={styles.stepBtnText}>+</Text>
           </Pressable>
         </View>
+        <Text style={styles.hint}>Départements suivis : {depts.join(', ')}</Text>
         <Text style={styles.hint}>
-          Départements suivis : {depts.join(', ')}
+          Le moniteur cloud utilise le code postal configuré dans les secrets GitHub
+          (Telegram). Un écart affiche un avertissement dans l’app.
         </Text>
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.title}>Moniteur cloud</Text>
-        <View style={styles.switchRow}>
-          <Text style={styles.label}>Utiliser GitHub Actions (Telegram)</Text>
-          <Switch
-            value={settings.cloudMonitorEnabled}
-            onValueChange={(v) => update('cloudMonitorEnabled', v)}
-          />
-        </View>
+        <Text style={styles.title}>Moniteur cloud (défaut)</Text>
         <Text style={styles.hint}>
-          Lit le snapshot publie toutes les {CLOUD_MONITOR_INTERVAL_MIN} min — meme source que
-          les alertes Telegram. Fallback local si indisponible.
+          L’app lit uniquement le snapshot JSON (GitHub Actions, toutes les{' '}
+          {CLOUD_MONITOR_INTERVAL_MIN} min). Aucun appel revendeur depuis le téléphone.
         </Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.title}>Vérifications locales</Text>
+        <Text style={styles.hint}>
+          Stock détecté → alerte Telegram (24/7) + notification app si iOS réveille
+          l’arrière-plan.
+        </Text>
         <Text style={styles.label}>
-          Intervalle (app ouverte) : {settings.intervalMinutes} min
+          Rafraîchissement snapshot (app ouverte) : {settings.intervalMinutes} min
         </Text>
         <View style={styles.stepper}>
           <Pressable
             style={styles.stepBtn}
-            onPress={() => update('intervalMinutes', Math.max(1, settings.intervalMinutes - 1))}>
+            onPress={() =>
+              update('intervalMinutes', Math.max(CLOUD_MONITOR_INTERVAL_MIN, settings.intervalMinutes - 1))
+            }>
             <Text style={styles.stepBtnText}>−</Text>
           </Pressable>
           <Pressable
@@ -114,29 +127,15 @@ export default function SettingsScreen() {
           </Pressable>
         </View>
         <View style={styles.switchRow}>
-          <Text style={styles.label}>Double vérification avant alerte</Text>
-          <Switch value={settings.confirmStock} onValueChange={(v) => update('confirmStock', v)} />
-        </View>
-        <View style={styles.switchRow}>
-          <Text style={styles.label}>Utiliser ClimRadar (si disponible)</Text>
+          <Text style={styles.label}>Notifications arrière-plan (snapshot)</Text>
           <Switch
-            value={settings.climradarEnabled}
-            onValueChange={(v) => update('climradarEnabled', v)}
+            value={settings.backgroundFetchEnabled}
+            onValueChange={(v) => update('backgroundFetchEnabled', v)}
           />
         </View>
         <Text style={styles.hint}>
-          Agrégateur ClimRadar (API JSON, MAJ ~10 min). Fallback autonome si indisponible.
-        </Text>
-        <View style={styles.switchRow}>
-          <Text style={styles.label}>Vérification directe des sites revendeurs</Text>
-          <Switch
-            value={settings.directCheckEnabled}
-            onValueChange={(v) => update('directCheckEnabled', v)}
-          />
-        </View>
-        <Text style={styles.hint}>
-          Interroge Amazon, Boulanger, Castorama, etc. directement — source principale en mode
-          autonome.
+          iOS : réveil approximatif toutes les 15–60 min (non garanti). Telegram reste la
+          source fiable. État : {bgStatus}
         </Text>
         <View style={styles.switchRow}>
           <Text style={styles.label}>Afficher les magasins en rupture</Text>
@@ -145,17 +144,59 @@ export default function SettingsScreen() {
             onValueChange={(v) => update('showOutOfStock', v)}
           />
         </View>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.title}>Mode local (optionnel)</Text>
         <View style={styles.switchRow}>
-          <Text style={styles.label}>Actualisation en arrière-plan</Text>
+          <Text style={styles.label}>Toujours vérifier en local</Text>
           <Switch
-            value={settings.backgroundFetchEnabled}
-            onValueChange={(v) => update('backgroundFetchEnabled', v)}
+            value={settings.forceLocalCheck}
+            onValueChange={(v) => update('forceLocalCheck', v)}
           />
         </View>
         <Text style={styles.hint}>
-          Arrière-plan : iOS réveille l’app environ toutes les 15–60 min (pas garanti).
-          État iOS : {bgStatus}
+          Interroge ClimRadar et les sites revendeurs depuis l’app — plus lent, risque anti-bot.
         </Text>
+
+        {!settings.forceLocalCheck && (
+          <Pressable
+            style={[styles.secondaryBtn, localChecking && styles.btnDisabled]}
+            onPress={onLocalOnce}
+            disabled={localChecking}>
+            {localChecking ? (
+              <ActivityIndicator color="#2563eb" />
+            ) : (
+              <Text style={styles.secondaryBtnText}>Vérifier localement une fois</Text>
+            )}
+          </Pressable>
+        )}
+
+        {settings.forceLocalCheck && (
+          <>
+            <View style={styles.switchRow}>
+              <Text style={styles.label}>Double vérification avant alerte</Text>
+              <Switch
+                value={settings.confirmStock}
+                onValueChange={(v) => update('confirmStock', v)}
+              />
+            </View>
+            <View style={styles.switchRow}>
+              <Text style={styles.label}>ClimRadar API</Text>
+              <Switch
+                value={settings.climradarEnabled}
+                onValueChange={(v) => update('climradarEnabled', v)}
+              />
+            </View>
+            <View style={styles.switchRow}>
+              <Text style={styles.label}>Sites revendeurs (direct)</Text>
+              <Switch
+                value={settings.directCheckEnabled}
+                onValueChange={(v) => update('directCheckEnabled', v)}
+              />
+            </View>
+          </>
+        )}
       </View>
 
       <Pressable style={styles.primaryBtn} onPress={onSave}>
@@ -163,7 +204,7 @@ export default function SettingsScreen() {
       </Pressable>
 
       <Pressable style={styles.secondaryBtn} onPress={onTestNotification}>
-        <Text style={styles.secondaryBtnText}>Test notification</Text>
+        <Text style={styles.secondaryBtnText}>Test notification app</Text>
       </Pressable>
 
       {saved && <Text style={styles.saved}>{saved}</Text>}
@@ -225,5 +266,6 @@ const styles = StyleSheet.create({
     borderColor: '#cbd5e1',
   },
   secondaryBtnText: { color: '#2563eb', fontWeight: '600', fontSize: 16 },
+  btnDisabled: { opacity: 0.6 },
   saved: { color: '#16a34a', textAlign: 'center', fontWeight: '600' },
 });
