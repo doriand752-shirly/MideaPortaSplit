@@ -1,10 +1,7 @@
 name: PortaSplit Monitor
 
-# Surveillance stock toutes les 10 min (UTC) + declenchement manuel / externe
+# Surveillance stock via cron-job.org (toutes les 10 min) + declenchement manuel
 on:
-  schedule:
-    # Minutes decalees (evite la charge GitHub a :00) — souvent inactif sur repos recents
-    - cron: "3,13,23,33,43,53 * * * *"
   repository_dispatch:
     types: [monitor]
   workflow_dispatch:
@@ -16,7 +13,7 @@ on:
 
 concurrency:
   group: portasplit-monitor
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 permissions:
   contents: write

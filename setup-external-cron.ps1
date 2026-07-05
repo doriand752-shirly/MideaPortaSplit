@@ -1,32 +1,29 @@
-# Declencheur externe fiable si le cron GitHub ne tourne pas (repos recents).
+# Declencheur cron-job.org pour PortaSplit Monitor (seule source de planification).
 # Prerequis : gh auth login
 
 $Owner = "doriand752-shirly"
 $Repo = "MideaPortaSplit"
-$Workflow = "monitor.yml"
 
 Write-Host ""
-Write-Host "=== Cron externe pour PortaSplit Monitor ===" -ForegroundColor Cyan
+Write-Host "=== Cron externe PortaSplit Monitor ===" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "Le cron GitHub (schedule) peut rester muet 24h+ sur un repo neuf."
-Write-Host "Solution : cron-job.org (gratuit) appelle le workflow toutes les 10 min."
+Write-Host "Le workflow GitHub n'a PAS de cron natif (schedule)."
+Write-Host "La planification passe uniquement par cron-job.org (toutes les 10 min)."
 Write-Host ""
-Write-Host "1. Creer un token GitHub (Fine-grained) :" -ForegroundColor Yellow
-Write-Host "   https://github.com/settings/tokens?type=beta"
-Write-Host "   - Repository access : $Owner/$Repo"
-Write-Host "   - Permissions : Actions = Read and write"
+Write-Host "Job existant : https://console.cron-job.org (PortaSplit Monitor)" -ForegroundColor Green
 Write-Host ""
-Write-Host "2. Sur https://cron-job.org/en/ creer un job :" -ForegroundColor Yellow
+Write-Host "Pour recreer le job manuellement :" -ForegroundColor Yellow
 Write-Host "   - URL : https://api.github.com/repos/$Owner/$Repo/dispatches"
 Write-Host "   - Method : POST"
-Write-Host "   - Schedule : */10 * * * *"
+Write-Host "   - Schedule : */10 * * * * (Europe/Paris)"
 Write-Host "   - Headers :"
 Write-Host "       Accept: application/vnd.github+json"
-Write-Host "       Authorization: Bearer VOTRE_TOKEN"
+Write-Host "       Authorization: Bearer VOTRE_TOKEN_GITHUB"
 Write-Host "       X-GitHub-Api-Version: 2022-11-28"
 Write-Host "   - Body (JSON) : { `"event_type`": `"monitor`" }"
 Write-Host ""
-Write-Host "3. Tester maintenant avec gh (sans token externe) :" -ForegroundColor Yellow
+Write-Host "Token GitHub : https://github.com/settings/tokens?type=beta"
+Write-Host "   Repository $Owner/$Repo, permission Actions = Read and write"
 Write-Host ""
 
 $run = Read-Host "Lancer un run manuel maintenant ? (o/N)"

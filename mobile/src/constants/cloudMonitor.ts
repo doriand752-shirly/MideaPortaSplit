@@ -2,7 +2,7 @@
 export const CLOUD_SNAPSHOT_URL =
   'https://raw.githubusercontent.com/doriand752-shirly/MideaPortaSplit/master/data/snapshot.json';
 
-/** Intervalle cron GitHub Actions (minutes). */
+/** Intervalle cron-job.org (minutes). */
 export const CLOUD_MONITOR_INTERVAL_MIN = 10;
 
 /** Au-dela, l'app retombe sur les verifications locales. */
