@@ -143,6 +143,13 @@ Repo GitHub → **Settings** → **Secrets and variables** → **Actions** :
 
 Poussez le repo sur GitHub, puis **Actions** → **PortaSplit Monitor** → **Run workflow** pour tester.
 
+**Déjà configuré en local (`.env`) ?** Copiez les secrets en une commande :
+
+```powershell
+gh auth login
+.\setup-github-secrets.ps1
+```
+
 L'état des alertes (`data/state.json`) est conservé via le cache Actions — pas de spam à chaque run.
 
 ## Limites
