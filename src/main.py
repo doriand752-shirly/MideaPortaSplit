@@ -12,7 +12,7 @@ from .availability import (
     build_actionable_offers,
     format_actionable_summary,
 )
-from .heartbeat import send_daily_heartbeat
+from .heartbeat import HEARTBEAT_STATE_KEY, seed_heartbeat_from_snapshot, send_daily_heartbeat
 from .local_stores import fetch_local_stores, local_config_from_env
 from .models import StockStatus
 from .notifiers import notify_actionable_offer, test_telegram
@@ -71,6 +71,8 @@ def run_check(
 
     actionable = build_actionable_offers(online_results, local_stores, postal_code or "?")
     store = StateStore(state_path)
+    if export_path:
+        seed_heartbeat_from_snapshot(store, export_path)
 
     for offer in actionable:
         if dry_run:
@@ -148,6 +150,7 @@ def run_check(
             actionable=actionable,
             postal_code=postal_code,
             radius_km=radius_km or 100.0,
+            last_heartbeat_date=store.get_meta(HEARTBEAT_STATE_KEY),
         )
         write_snapshot(export_path, payload)
         if verbose:

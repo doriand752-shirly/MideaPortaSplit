@@ -25,6 +25,7 @@ BORDER_DEPARTMENT_LABELS: dict[str, str] = {
 }
 
 SNAPSHOT_VERSION = 1
+SNAPSHOT_HEARTBEAT_FIELD = "lastHeartbeatDate"
 
 
 def _parse_price(raw: str | None) -> float | None:
@@ -114,8 +115,9 @@ def build_snapshot(
     actionable: list[ActionableOffer],
     postal_code: str,
     radius_km: float,
+    last_heartbeat_date: str | None = None,
 ) -> dict[str, Any]:
-    return {
+    payload: dict[str, Any] = {
         "schemaVersion": SNAPSHOT_VERSION,
         "checkedAt": datetime.now(timezone.utc).isoformat(),
         "postalCode": postal_code,
@@ -128,6 +130,9 @@ def build_snapshot(
         "climradarAvailable": True,
         "source": "github-actions",
     }
+    if last_heartbeat_date:
+        payload[SNAPSHOT_HEARTBEAT_FIELD] = last_heartbeat_date
+    return payload
 
 
 def write_snapshot(path: Path, payload: dict[str, Any]) -> None:
