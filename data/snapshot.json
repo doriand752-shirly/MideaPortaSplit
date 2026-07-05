@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-05T23:41:08.844359+00:00",
+  "checkedAt": "2026-07-05T23:51:04.087975+00:00",
   "postalCode": "33400",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -104,7 +104,7 @@
       "id": "fnac",
       "retailerName": "Fnac",
       "inStock": false,
-      "price": null,
+      "price": 989.99,
       "url": "https://www.fnac.com/",
       "deliveryEligible": false,
       "lastUpdateMin": null,
@@ -211,6 +211,20 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:leroy_merlin:33380:leroy-merlin-biganos-bassin-d-arcachon",
+      "storeName": "Leroy Merlin Biganos - Bassin d'Arcachon",
+      "retailerId": "leroy_merlin",
+      "location": "BIGANOS 33380",
+      "postalCode": "33380",
+      "department": "33",
+      "distanceKm": 33.2,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
       "lastUpdateMin": 2,
       "stockSource": "climradar"
     }
