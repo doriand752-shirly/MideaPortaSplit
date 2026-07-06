@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-06T06:31:21.085598+00:00",
+  "checkedAt": "2026-07-06T06:41:00.441373+00:00",
   "postalCode": "33400",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -26,8 +26,8 @@
       "sources": [
         "climradar"
       ],
-      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
-      "checkError": false
+      "sourceDetail": "Revendeur absent de ClimRadar",
+      "checkError": true
     },
     {
       "id": "boulanger",
@@ -109,11 +109,10 @@
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar",
-        "direct"
+        "climradar"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Aucun indicateur fiable detecte",
-      "checkError": false
+      "sourceDetail": "Revendeur absent de ClimRadar",
+      "checkError": true
     },
     {
       "id": "manomano",
