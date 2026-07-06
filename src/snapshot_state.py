@@ -62,15 +62,33 @@ def seed_store_from_snapshot(store: StateStore, snapshot_path: Path) -> None:
                     store.set_alert_date(key, day)
 
 
-def should_send_stock_alert(store: StateStore, state_key: str, today: str | None = None) -> bool:
-    """True si une notification stock peut partir (max 1 / magasin / jour)."""
-    day = today or today_local()
-    if store.get_alert_date(state_key) == day:
-        return False
+def _is_physical_store(state_key: str, kind: str | None = None) -> bool:
+    return kind == "magasin" or state_key.startswith("local:")
+
+
+def should_send_stock_alert(
+    store: StateStore,
+    state_key: str,
+    today: str | None = None,
+    *,
+    kind: str | None = None,
+) -> bool:
+    """Magasin physique : max 1 alerte/jour. En ligne : alerte si nouveau stock."""
+    if _is_physical_store(state_key, kind):
+        day = today or today_local()
+        if store.get_alert_date(state_key) == day:
+            return False
     if store.get_last_status(state_key) == StockStatus.IN_STOCK.value:
         return False
     return True
 
 
-def record_stock_alert(store: StateStore, state_key: str, today: str | None = None) -> None:
-    store.set_alert_date(state_key, today or today_local())
+def record_stock_alert(
+    store: StateStore,
+    state_key: str,
+    today: str | None = None,
+    *,
+    kind: str | None = None,
+) -> None:
+    if _is_physical_store(state_key, kind):
+        store.set_alert_date(state_key, today or today_local())

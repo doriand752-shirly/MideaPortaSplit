@@ -85,7 +85,7 @@ def run_check(
         if dry_run:
             continue
 
-        if not should_send_stock_alert(store, offer.state_key, today):
+        if not should_send_stock_alert(store, offer.state_key, today, kind=offer.kind):
             store.update_local_store(offer.state_key, True, offer.detail, offer.url)
             continue
 
@@ -113,7 +113,7 @@ def run_check(
             continue
 
         store.update_local_store(offer.state_key, True, offer.detail, offer.url)
-        record_stock_alert(store, offer.state_key, today)
+        record_stock_alert(store, offer.state_key, today, kind=offer.kind)
         label = "MAGASIN" if offer.kind == "magasin" else "LIVRAISON"
         print(
             f"[ALERTE {label}] {offer.retailer_name} ({', '.join(channels)})",
