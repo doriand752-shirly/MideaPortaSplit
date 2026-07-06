@@ -26,6 +26,8 @@ BORDER_DEPARTMENT_LABELS: dict[str, str] = {
 
 SNAPSHOT_VERSION = 1
 SNAPSHOT_HEARTBEAT_FIELD = "lastHeartbeatDate"
+SNAPSHOT_ALERT_DATES_FIELD = "alertDates"
+SNAPSHOT_STOCK_STATE_FIELD = "stockState"
 
 
 def _parse_price(raw: str | None) -> float | None:
@@ -116,6 +118,8 @@ def build_snapshot(
     postal_code: str,
     radius_km: float,
     last_heartbeat_date: str | None = None,
+    alert_dates: dict[str, str] | None = None,
+    stock_state: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     payload: dict[str, Any] = {
         "schemaVersion": SNAPSHOT_VERSION,
@@ -132,6 +136,10 @@ def build_snapshot(
     }
     if last_heartbeat_date:
         payload[SNAPSHOT_HEARTBEAT_FIELD] = last_heartbeat_date
+    if alert_dates:
+        payload[SNAPSHOT_ALERT_DATES_FIELD] = alert_dates
+    if stock_state:
+        payload[SNAPSHOT_STOCK_STATE_FIELD] = stock_state
     return payload
 
 

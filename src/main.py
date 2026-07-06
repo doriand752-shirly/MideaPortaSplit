@@ -12,9 +12,14 @@ from .availability import (
     build_actionable_offers,
     format_actionable_summary,
 )
-from .heartbeat import HEARTBEAT_STATE_KEY, seed_heartbeat_from_snapshot, send_daily_heartbeat
+from .heartbeat import HEARTBEAT_STATE_KEY, send_daily_heartbeat
+from .snapshot_state import (
+    record_stock_alert,
+    seed_store_from_snapshot,
+    should_send_stock_alert,
+    today_local,
+)
 from .local_stores import fetch_local_stores, local_config_from_env
-from .models import StockStatus
 from .notifiers import notify_actionable_offer, test_telegram
 from .verification import confirm_actionable_offer
 from .snapshot_export import build_snapshot, write_snapshot
@@ -72,14 +77,15 @@ def run_check(
     actionable = build_actionable_offers(online_results, local_stores, postal_code or "?")
     store = StateStore(state_path)
     if export_path:
-        seed_heartbeat_from_snapshot(store, export_path)
+        seed_store_from_snapshot(store, export_path)
+
+    today = today_local()
 
     for offer in actionable:
         if dry_run:
             continue
 
-        already_alerted = store.get_last_status(offer.state_key) == StockStatus.IN_STOCK.value
-        if already_alerted:
+        if not should_send_stock_alert(store, offer.state_key, today):
             store.update_local_store(offer.state_key, True, offer.detail, offer.url)
             continue
 
@@ -107,6 +113,7 @@ def run_check(
             continue
 
         store.update_local_store(offer.state_key, True, offer.detail, offer.url)
+        record_stock_alert(store, offer.state_key, today)
         label = "MAGASIN" if offer.kind == "magasin" else "LIVRAISON"
         print(
             f"[ALERTE {label}] {offer.retailer_name} ({', '.join(channels)})",
@@ -151,6 +158,8 @@ def run_check(
             postal_code=postal_code,
             radius_km=radius_km or 100.0,
             last_heartbeat_date=store.get_meta(HEARTBEAT_STATE_KEY),
+            alert_dates=store.export_alert_dates(),
+            stock_state=store.export_stock_state(),
         )
         write_snapshot(export_path, payload)
         if verbose:

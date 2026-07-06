@@ -2,14 +2,11 @@
 
 from __future__ import annotations
 
-import json
 import os
 from datetime import datetime
-from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from .notifiers import send_heartbeat_message
-from .snapshot_export import SNAPSHOT_HEARTBEAT_FIELD
 from .state import StateStore
 
 HEARTBEAT_STATE_KEY = "heartbeat:last_date"
@@ -29,21 +26,6 @@ def heartbeat_config() -> tuple[bool, int, str]:
     hour = max(0, min(23, hour))
     tz = os.getenv("HEARTBEAT_TIMEZONE", "Europe/Paris").strip() or "Europe/Paris"
     return enabled, hour, tz
-
-
-def seed_heartbeat_from_snapshot(store: StateStore, snapshot_path: Path) -> None:
-    """GitHub Actions : le cache state.json est peu fiable, on relit le snapshot commité."""
-    if store.get_meta(HEARTBEAT_STATE_KEY):
-        return
-    if not snapshot_path.exists():
-        return
-    try:
-        data = json.loads(snapshot_path.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError):
-        return
-    last = data.get(SNAPSHOT_HEARTBEAT_FIELD)
-    if isinstance(last, str) and last:
-        store.set_meta(HEARTBEAT_STATE_KEY, last)
 
 
 def should_send_heartbeat(store: StateStore) -> bool:

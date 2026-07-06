@@ -11,6 +11,7 @@ class StateStore:
     def __init__(self, path: Path) -> None:
         self.path = path
         self._data: dict[str, dict] = {}
+        self._alert_dates: dict[str, str] = {}
         self._load()
 
     def _load(self) -> None:
@@ -86,3 +87,22 @@ class StateStore:
     def set_meta(self, key: str, value: str) -> None:
         now = datetime.now(timezone.utc).isoformat()
         self._data[key] = {"value": value, "updated_at": now}
+
+    def get_alert_date(self, key: str) -> str | None:
+        return self._alert_dates.get(key)
+
+    def set_alert_date(self, key: str, date: str) -> None:
+        self._alert_dates[key] = date
+
+    def export_alert_dates(self) -> dict[str, str]:
+        return dict(self._alert_dates)
+
+    def export_stock_state(self) -> dict[str, str]:
+        out: dict[str, str] = {}
+        for key, entry in self._data.items():
+            if not isinstance(entry, dict):
+                continue
+            status = entry.get("status")
+            if status and "value" not in entry:
+                out[key] = str(status)
+        return out
