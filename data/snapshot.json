@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-06T07:11:01.651857+00:00",
+  "checkedAt": "2026-07-06T07:20:59.467563+00:00",
   "postalCode": "33400",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -109,10 +109,10 @@
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "direct"
+        "climradar"
       ],
-      "sourceDetail": "Site: Aucun indicateur fiable detecte",
-      "checkError": false
+      "sourceDetail": "Revendeur absent de ClimRadar",
+      "checkError": true
     },
     {
       "id": "manomano",
