@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-06T14:51:12.737746+00:00",
+  "checkedAt": "2026-07-06T15:01:33.276530+00:00",
   "postalCode": "33400",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -54,8 +54,8 @@
       "sources": [
         "direct"
       ],
-      "sourceDetail": "Indicateur: « rupture de stock »",
-      "checkError": false
+      "sourceDetail": "404 Client Error: Not Found for url: https://www.castorama.fr/climatiseur-split-midea-reversible-3500w/8431312260509_CAFR.prd",
+      "checkError": true
     },
     {
       "id": "leroy_merlin",
@@ -109,10 +109,9 @@
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar",
-        "direct"
+        "climradar"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Aucun indicateur fiable detecte",
+      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
       "checkError": false
     },
     {
@@ -142,7 +141,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 12,
+      "lastUpdateMin": 22,
       "stockSource": "climradar"
     },
     {
@@ -156,7 +155,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 12,
+      "lastUpdateMin": 22,
       "stockSource": "climradar"
     },
     {
@@ -184,7 +183,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 12,
+      "lastUpdateMin": 22,
       "stockSource": "climradar"
     },
     {
@@ -212,7 +211,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 12,
+      "lastUpdateMin": 22,
       "stockSource": "climradar"
     },
     {
@@ -240,7 +239,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 12,
+      "lastUpdateMin": 22,
       "stockSource": "climradar"
     }
   ],
