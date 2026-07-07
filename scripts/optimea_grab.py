@@ -98,6 +98,22 @@ def _extract_optimea_price(html: str) -> str | None:
     return f"{value:.2f} €".replace(".", ",")
 
 
+def _optimea_signals(html: str) -> str:
+    """Compteurs de signaux stock bruts (comme la sonde de diagnostic)."""
+    low = html.lower()
+    counts = {
+        "outofstock": low.count("outofstock") + low.count("out-of-stock"),
+        "instock": low.count("instock") + low.count("in-stock"),
+        "backorder": low.count("backorder"),
+        "on-backorder": low.count("on-backorder"),
+        "stock_status": low.count("stock_status"),
+    }
+    has_variations = 'data-product_variations="' in low
+    parts = [f"{k}={v}" for k, v in counts.items()]
+    parts.append(f"variations={has_variations}")
+    return " ".join(parts)
+
+
 def check_optimea(session: requests.Session) -> tuple[bool, str | None, str]:
     """Retourne (en_stock, url, detail)."""
     try:
@@ -109,8 +125,9 @@ def check_optimea(session: requests.Session) -> tuple[bool, str | None, str]:
     low = resp.text.lower()
     price = _extract_optimea_price(resp.text)
     price_txt = f", {price}" if price else ""
+    signals = _optimea_signals(resp.text)
     if "out-of-stock" in low or "rupture de stock" in low or "outofstock" in low:
-        return False, None, f"rupture{price_txt}"
+        return False, None, f"rupture{price_txt} [{signals}]"
     compact = low.replace(" ", "")
     in_stock = (
         "single_add_to_cart_button" in low
@@ -119,7 +136,7 @@ def check_optimea(session: requests.Session) -> tuple[bool, str | None, str]:
         or "in-stock" in low
     )
     label = "EN STOCK" if in_stock else "statut indetermine"
-    return in_stock, None, f"{label}{price_txt}"
+    return in_stock, None, f"{label}{price_txt} [{signals}]"
 
 
 def check_manomano() -> tuple[bool, str | None, str]:
