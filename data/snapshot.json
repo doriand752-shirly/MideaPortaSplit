@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-07T02:51:05.149103+00:00",
+  "checkedAt": "2026-07-07T03:01:28.936495+00:00",
   "postalCode": "33400",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -18,15 +18,15 @@
     {
       "id": "darty",
       "retailerName": "Darty",
-      "inStock": false,
-      "price": null,
+      "inStock": true,
+      "price": 999.0,
       "url": "https://www.darty.com/nav/achat/petit_electromenager/traitement_air/climatiseur/midea_mmcs-12hrn8-qrd0.html",
-      "deliveryEligible": false,
+      "deliveryEligible": true,
       "lastUpdateMin": null,
       "sources": [
         "climradar"
       ],
-      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
+      "sourceDetail": "ClimRadar (en stock, MAJ ~10 min)",
       "checkError": false
     },
     {
@@ -142,7 +142,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 7,
+      "lastUpdateMin": 22,
       "stockSource": "climradar"
     },
     {
@@ -156,7 +156,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 7,
+      "lastUpdateMin": 22,
       "stockSource": "climradar"
     },
     {
@@ -174,6 +174,20 @@
       "stockSource": "climradar"
     },
     {
+      "id": "local:leroy_merlin:33270:leroy-merlin-bouliac-bordeaux",
+      "storeName": "Leroy Merlin Bouliac - Bordeaux",
+      "retailerId": "leroy_merlin",
+      "location": "BOULIAC 33270",
+      "postalCode": "33270",
+      "department": "33",
+      "distanceKm": 7.4,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
+      "lastUpdateMin": 22,
+      "stockSource": "climradar"
+    },
+    {
       "id": "local:castorama:33700:castorama-m-rignac",
       "storeName": "Castorama Mérignac",
       "retailerId": "castorama",
@@ -188,20 +202,6 @@
       "stockSource": "climradar"
     },
     {
-      "id": "local:leroy_merlin:33270:leroy-merlin-bouliac-bordeaux",
-      "storeName": "Leroy Merlin Bouliac - Bordeaux",
-      "retailerId": "leroy_merlin",
-      "location": "BOULIAC 33270",
-      "postalCode": "33270",
-      "department": "33",
-      "distanceKm": 7.4,
-      "inStock": false,
-      "price": 999,
-      "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 7,
-      "stockSource": "climradar"
-    },
-    {
       "id": "local:leroy_merlin:33700:leroy-merlin-m-rignac-bordeaux",
       "storeName": "Leroy Merlin Mérignac - Bordeaux",
       "retailerId": "leroy_merlin",
@@ -212,7 +212,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 7,
+      "lastUpdateMin": 22,
       "stockSource": "climradar"
     },
     {
@@ -240,11 +240,20 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 7,
+      "lastUpdateMin": 22,
       "stockSource": "climradar"
     }
   ],
-  "actionable": [],
+  "actionable": [
+    {
+      "id": "livraison:darty",
+      "kind": "livraison",
+      "title": "Darty",
+      "detail": "Livraison vers 33400 — ClimRadar (en stock, MAJ ~10 min)",
+      "url": "https://www.darty.com/nav/achat/petit_electromenager/traitement_air/climatiseur/midea_mmcs-12hrn8-qrd0.html",
+      "price": 999.0
+    }
+  ],
   "dataMode": "cloud",
   "climradarAvailable": true,
   "source": "github-actions",
@@ -253,6 +262,7 @@
     "local:leroy_merlin:33270:leroy-merlin-bouliac-bordeaux": "2026-07-06"
   },
   "stockState": {
-    "local:leroy_merlin:33270:leroy-merlin-bouliac-bordeaux": "out_of_stock"
+    "local:leroy_merlin:33270:leroy-merlin-bouliac-bordeaux": "out_of_stock",
+    "livraison:darty": "in_stock"
   }
 }
