@@ -498,6 +498,26 @@ def _merge_climradar_and_direct(
     return StockResult(retailer=retailer, status=status, detail=detail, price=price)
 
 
+def _friendly_error(exc: Exception) -> str:
+    """Message clair pour l'app au lieu d'une trace HTTP brute."""
+    response = getattr(exc, "response", None)
+    status = getattr(response, "status_code", None)
+    if status == 403:
+        return "Non verifiable depuis le cloud (403) — suivi via le PC local"
+    if status == 404:
+        return "Page introuvable (404)"
+    if status == 429:
+        return "Trop de requetes (429) — reessai plus tard"
+    if status and status >= 500:
+        return f"Serveur revendeur indisponible ({status})"
+    if isinstance(exc, requests.Timeout):
+        return "Delai depasse"
+    if isinstance(exc, requests.ConnectionError):
+        return "Connexion impossible"
+    msg = str(exc).strip()
+    return msg[:120] if msg else "Erreur de verification"
+
+
 def check_retailer_direct(
     retailer: Retailer,
     *,
@@ -529,12 +549,12 @@ def check_retailer_direct(
                 return StockResult(
                     retailer=retailer,
                     status=StockStatus.ERROR,
-                    detail=f"Site inaccessible (anti-bot): {browser_exc}",
+                    detail=f"Site inaccessible (anti-bot): {_friendly_error(browser_exc)}",
                 )
         return StockResult(
             retailer=retailer,
             status=StockStatus.ERROR,
-            detail=str(exc),
+            detail=_friendly_error(exc),
         )
 
 
@@ -550,7 +570,7 @@ def check_retailer(
         return StockResult(
             retailer=retailer,
             status=StockStatus.ERROR,
-            detail=str(exc),
+            detail=_friendly_error(exc),
         )
     return _analyze_html(retailer, html, source)
 
