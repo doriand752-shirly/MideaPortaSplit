@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-07T13:41:23.138349+00:00",
+  "checkedAt": "2026-07-07T13:51:31.116492+00:00",
   "postalCode": "33400",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -109,9 +109,10 @@
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar"
+        "climradar",
+        "direct"
       ],
-      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
+      "sourceDetail": "ClimRadar: rupture · Site: Aucun indicateur fiable detecte",
       "checkError": false
     },
     {
@@ -131,132 +132,6 @@
   ],
   "localStores": [
     {
-      "id": "local:boulanger:33140:boulanger-bordeaux-b-gles-villenave-d-ornon",
-      "storeName": "Boulanger Bordeaux - Bégles - Villenave D'Ornon",
-      "retailerId": "boulanger",
-      "location": "VILLENAVE D'ORNON 33140",
-      "postalCode": "33140",
-      "department": "33",
-      "distanceKm": 5.5,
-      "inStock": true,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:33700:boulanger-bordeaux-m-rignac",
-      "storeName": "Boulanger Bordeaux - Mérignac",
-      "retailerId": "boulanger",
-      "location": "MÉRIGNAC 33700",
-      "postalCode": "33700",
-      "department": "33",
-      "distanceKm": 5.9,
-      "inStock": true,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:33300:boulanger-bordeaux-lac",
-      "storeName": "Boulanger Bordeaux  Lac",
-      "retailerId": "boulanger",
-      "location": "BORDEAUX 33300",
-      "postalCode": "33300",
-      "department": "33",
-      "distanceKm": 8.2,
-      "inStock": true,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:33560:boulanger-bordeaux-sainte-eulalie",
-      "storeName": "Boulanger Bordeaux - Sainte Eulalie",
-      "retailerId": "boulanger",
-      "location": "SAINTE-EULALIE 33560",
-      "postalCode": "33560",
-      "department": "33",
-      "distanceKm": 13.6,
-      "inStock": true,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:33500:boulanger-bordeaux-libourne",
-      "storeName": "Boulanger Bordeaux - Libourne",
-      "retailerId": "boulanger",
-      "location": "LIBOURNE 33500",
-      "postalCode": "33500",
-      "department": "33",
-      "distanceKm": 31.2,
-      "inStock": true,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:33380:boulanger-biganos-arcachon",
-      "storeName": "Boulanger Biganos - Arcachon",
-      "retailerId": "boulanger",
-      "location": "BIGANOS 33380",
-      "postalCode": "33380",
-      "department": "33",
-      "distanceKm": 34.7,
-      "inStock": true,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:24700:boulanger-montpon-menesterol",
-      "storeName": "Boulanger Montpon Menesterol",
-      "retailerId": "boulanger",
-      "location": "MONTPON MENESTEROL 24700",
-      "postalCode": "24700",
-      "department": "24",
-      "distanceKm": 62.0,
-      "inStock": true,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:33220:connexion-partenaire-boulanger-pineuilh",
-      "storeName": "Connexion Partenaire Boulanger  Pineuilh",
-      "retailerId": "boulanger",
-      "location": "PINEUILH 33220",
-      "postalCode": "33220",
-      "department": "33",
-      "distanceKm": 65.9,
-      "inStock": true,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:17200:boulanger-royan",
-      "storeName": "Boulanger Royan",
-      "retailerId": "boulanger",
-      "location": "ROYAN 17200",
-      "postalCode": "17200",
-      "department": "17",
-      "distanceKm": 96.7,
-      "inStock": true,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
       "id": "local:leroy_merlin:33000:leroy-merlin-bordeaux",
       "storeName": "Leroy Merlin Bordeaux",
       "retailerId": "leroy_merlin",
@@ -267,7 +142,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 27,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -281,7 +156,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 27,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -295,6 +170,34 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:boulanger:33140:boulanger-bordeaux-b-gles-villenave-d-ornon",
+      "storeName": "Boulanger Bordeaux - Bégles - Villenave D'Ornon",
+      "retailerId": "boulanger",
+      "location": "VILLENAVE D'ORNON 33140",
+      "postalCode": "33140",
+      "department": "33",
+      "distanceKm": 5.5,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:boulanger:33700:boulanger-bordeaux-m-rignac",
+      "storeName": "Boulanger Bordeaux - Mérignac",
+      "retailerId": "boulanger",
+      "location": "MÉRIGNAC 33700",
+      "postalCode": "33700",
+      "department": "33",
+      "distanceKm": 5.9,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
       "lastUpdateMin": 2,
       "stockSource": "climradar"
     },
@@ -323,7 +226,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 27,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -337,7 +240,21 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 27,
+      "lastUpdateMin": 7,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:boulanger:33300:boulanger-bordeaux-lac",
+      "storeName": "Boulanger Bordeaux  Lac",
+      "retailerId": "boulanger",
+      "location": "BORDEAUX 33300",
+      "postalCode": "33300",
+      "department": "33",
+      "distanceKm": 8.2,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
       "stockSource": "climradar"
     },
     {
@@ -355,6 +272,34 @@
       "stockSource": "climradar"
     },
     {
+      "id": "local:boulanger:33560:boulanger-bordeaux-sainte-eulalie",
+      "storeName": "Boulanger Bordeaux - Sainte Eulalie",
+      "retailerId": "boulanger",
+      "location": "SAINTE-EULALIE 33560",
+      "postalCode": "33560",
+      "department": "33",
+      "distanceKm": 13.6,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:boulanger:33500:boulanger-bordeaux-libourne",
+      "storeName": "Boulanger Bordeaux - Libourne",
+      "retailerId": "boulanger",
+      "location": "LIBOURNE 33500",
+      "postalCode": "33500",
+      "department": "33",
+      "distanceKm": 31.2,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
       "id": "local:leroy_merlin:33380:leroy-merlin-biganos-bassin-d-arcachon",
       "storeName": "Leroy Merlin Biganos - Bassin d'Arcachon",
       "retailerId": "leroy_merlin",
@@ -365,84 +310,67 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 27,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
-    }
-  ],
-  "actionable": [
-    {
-      "id": "local:boulanger:33140:boulanger-bordeaux-b-gles-villenave-d-ornon",
-      "kind": "magasin",
-      "title": "Boulanger Bordeaux - Bégles - Villenave D'Ornon",
-      "detail": "Retrait magasin — 5.5 km de 33400",
-      "url": "https://www.boulanger.com/ref/1216685",
-      "price": 999.0
-    },
-    {
-      "id": "local:boulanger:33700:boulanger-bordeaux-m-rignac",
-      "kind": "magasin",
-      "title": "Boulanger Bordeaux - Mérignac",
-      "detail": "Retrait magasin — 5.9 km de 33400",
-      "url": "https://www.boulanger.com/ref/1216685",
-      "price": 999.0
-    },
-    {
-      "id": "local:boulanger:33300:boulanger-bordeaux-lac",
-      "kind": "magasin",
-      "title": "Boulanger Bordeaux  Lac",
-      "detail": "Retrait magasin — 8.2 km de 33400",
-      "url": "https://www.boulanger.com/ref/1216685",
-      "price": 999.0
-    },
-    {
-      "id": "local:boulanger:33560:boulanger-bordeaux-sainte-eulalie",
-      "kind": "magasin",
-      "title": "Boulanger Bordeaux - Sainte Eulalie",
-      "detail": "Retrait magasin — 13.6 km de 33400",
-      "url": "https://www.boulanger.com/ref/1216685",
-      "price": 999.0
-    },
-    {
-      "id": "local:boulanger:33500:boulanger-bordeaux-libourne",
-      "kind": "magasin",
-      "title": "Boulanger Bordeaux - Libourne",
-      "detail": "Retrait magasin — 31.2 km de 33400",
-      "url": "https://www.boulanger.com/ref/1216685",
-      "price": 999.0
     },
     {
       "id": "local:boulanger:33380:boulanger-biganos-arcachon",
-      "kind": "magasin",
-      "title": "Boulanger Biganos - Arcachon",
-      "detail": "Retrait magasin — 34.7 km de 33400",
-      "url": "https://www.boulanger.com/ref/1216685",
-      "price": 999.0
+      "storeName": "Boulanger Biganos - Arcachon",
+      "retailerId": "boulanger",
+      "location": "BIGANOS 33380",
+      "postalCode": "33380",
+      "department": "33",
+      "distanceKm": 34.7,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
     },
     {
       "id": "local:boulanger:24700:boulanger-montpon-menesterol",
-      "kind": "magasin",
-      "title": "Boulanger Montpon Menesterol",
-      "detail": "Retrait magasin — 62.0 km de 33400",
-      "url": "https://www.boulanger.com/ref/1216685",
-      "price": 999.0
+      "storeName": "Boulanger Montpon Menesterol",
+      "retailerId": "boulanger",
+      "location": "MONTPON MENESTEROL 24700",
+      "postalCode": "24700",
+      "department": "24",
+      "distanceKm": 62.0,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
     },
     {
       "id": "local:boulanger:33220:connexion-partenaire-boulanger-pineuilh",
-      "kind": "magasin",
-      "title": "Connexion Partenaire Boulanger  Pineuilh",
-      "detail": "Retrait magasin — 65.9 km de 33400",
-      "url": "https://www.boulanger.com/ref/1216685",
-      "price": 999.0
+      "storeName": "Connexion Partenaire Boulanger  Pineuilh",
+      "retailerId": "boulanger",
+      "location": "PINEUILH 33220",
+      "postalCode": "33220",
+      "department": "33",
+      "distanceKm": 65.9,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
     },
     {
       "id": "local:boulanger:17200:boulanger-royan",
-      "kind": "magasin",
-      "title": "Boulanger Royan",
-      "detail": "Retrait magasin — 96.7 km de 33400",
-      "url": "https://www.boulanger.com/ref/1216685",
-      "price": 999.0
+      "storeName": "Boulanger Royan",
+      "retailerId": "boulanger",
+      "location": "ROYAN 17200",
+      "postalCode": "17200",
+      "department": "17",
+      "distanceKm": 96.7,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
     }
   ],
+  "actionable": [],
   "dataMode": "cloud",
   "climradarAvailable": true,
   "source": "github-actions",
@@ -462,14 +390,14 @@
   "stockState": {
     "local:leroy_merlin:33270:leroy-merlin-bouliac-bordeaux": "out_of_stock",
     "livraison:darty": "out_of_stock",
-    "local:boulanger:33140:boulanger-bordeaux-b-gles-villenave-d-ornon": "in_stock",
-    "local:boulanger:33700:boulanger-bordeaux-m-rignac": "in_stock",
-    "local:boulanger:33300:boulanger-bordeaux-lac": "in_stock",
-    "local:boulanger:33560:boulanger-bordeaux-sainte-eulalie": "in_stock",
-    "local:boulanger:33500:boulanger-bordeaux-libourne": "in_stock",
-    "local:boulanger:33380:boulanger-biganos-arcachon": "in_stock",
-    "local:boulanger:24700:boulanger-montpon-menesterol": "in_stock",
-    "local:boulanger:33220:connexion-partenaire-boulanger-pineuilh": "in_stock",
-    "local:boulanger:17200:boulanger-royan": "in_stock"
+    "local:boulanger:33140:boulanger-bordeaux-b-gles-villenave-d-ornon": "out_of_stock",
+    "local:boulanger:33700:boulanger-bordeaux-m-rignac": "out_of_stock",
+    "local:boulanger:33300:boulanger-bordeaux-lac": "out_of_stock",
+    "local:boulanger:33560:boulanger-bordeaux-sainte-eulalie": "out_of_stock",
+    "local:boulanger:33500:boulanger-bordeaux-libourne": "out_of_stock",
+    "local:boulanger:33380:boulanger-biganos-arcachon": "out_of_stock",
+    "local:boulanger:24700:boulanger-montpon-menesterol": "out_of_stock",
+    "local:boulanger:33220:connexion-partenaire-boulanger-pineuilh": "out_of_stock",
+    "local:boulanger:17200:boulanger-royan": "out_of_stock"
   }
 }
