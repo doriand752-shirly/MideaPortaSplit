@@ -24,29 +24,64 @@ HOMEPAGES: dict[str, str] = {
     "manomano": "https://www.manomano.fr/",
 }
 
-BOT_BLOCK_PATTERNS = [
+# Signaux fiables d'une vraie page de blocage (DataDome, Cloudflare, Incapsula...).
+STRONG_BLOCK_PATTERNS = [
     re.compile(p, re.I)
     for p in (
         r"datadome",
         r"captcha-delivery",
         r"geo\.captcha",
+        r"_Incapsula_Resource",
+        r"cf-browser-verification",
+        r"cf[_-]chl",
+        r"just a moment\.\.\.",
+        r"attention required",
+        r"bot detection",
+    )
+]
+
+# Signaux ambigus : widgets/scripts presents aussi sur des pages produit legitimes
+# (reCAPTCHA de formulaire, script Cloudflare charge partout, etc.).
+WEAK_BLOCK_PATTERNS = [
+    re.compile(p, re.I)
+    for p in (
         r"challenge-platform",
         r"please enable javascript",
         r"access.?denied",
-        r"_Incapsula_Resource",
-        r"cf-browser-verification",
-        r"attention required",
-        r"bot detection",
         r"hcaptcha",
         r"recaptcha",
     )
 ]
 
+# Marqueurs indiquant une vraie page produit chargee (WooCommerce, JSON-LD, panier...).
+REAL_CONTENT_PATTERNS = [
+    re.compile(p, re.I)
+    for p in (
+        r"add[_-]to[_-]cart",
+        r"single_add_to_cart_button",
+        r"woocommerce-Price-amount",
+        r'itemprop=["\']price',
+        r"application/ld\+json",
+        r'"availability"\s*:',
+        r"\b(in-stock|out-of-stock)\b",
+        r"rupture de stock",
+    )
+]
+
+
+def _has_real_content(html: str) -> bool:
+    return sum(1 for p in REAL_CONTENT_PATTERNS if p.search(html)) >= 2
+
 
 def is_bot_blocked(html: str) -> bool:
     if len(html) < 800:
         return True
-    return any(p.search(html) for p in BOT_BLOCK_PATTERNS)
+    if any(p.search(html) for p in STRONG_BLOCK_PATTERNS):
+        return True
+    # Les signaux faibles ne comptent que si la page n'a pas de vrai contenu produit.
+    if any(p.search(html) for p in WEAK_BLOCK_PATTERNS) and not _has_real_content(html):
+        return True
+    return False
 
 
 def _nav_headers(*, referer: str | None = None, same_origin: bool = False) -> dict[str, str]:

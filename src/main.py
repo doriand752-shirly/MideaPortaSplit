@@ -6,7 +6,11 @@ import sys
 import time
 from pathlib import Path
 
-from dotenv import load_dotenv
+try:
+    from dotenv import load_dotenv
+except ImportError:  # dependance optionnelle : variables d'env deja fournies (CI, shell)
+    def load_dotenv(*_args, **_kwargs) -> bool:
+        return False
 
 from .availability import (
     build_actionable_offers,

@@ -12,21 +12,44 @@ const HOMEPAGES: Record<string, string> = {
   manomano: 'https://www.manomano.fr/',
 };
 
-const BOT_PATTERNS = [
+// Signaux fiables d'une vraie page de blocage (DataDome, Cloudflare, Incapsula...).
+const STRONG_BOT_PATTERNS = [
   /datadome/i,
   /captcha-delivery/i,
   /geo\.captcha/i,
+  /_Incapsula_Resource/i,
+  /cf-browser-verification/i,
+  /cf[_-]chl/i,
+  /just a moment\.\.\./i,
+  /attention required/i,
+  /bot detection/i,
+];
+
+// Signaux ambigus : widgets/scripts presents aussi sur des pages produit legitimes.
+const WEAK_BOT_PATTERNS = [
   /challenge-platform/i,
   /please enable javascript/i,
   /access denied/i,
-  /_Incapsula_Resource/i,
-  /cf-browser-verification/i,
-  /attention required/i,
-  /bot detection/i,
   /interstitial/i,
   /hcaptcha/i,
   /recaptcha/i,
 ];
+
+// Marqueurs d'une vraie page produit chargee (WooCommerce, JSON-LD, panier...).
+const REAL_CONTENT_PATTERNS = [
+  /add[_-]to[_-]cart/i,
+  /single_add_to_cart_button/i,
+  /woocommerce-Price-amount/i,
+  /itemprop=["']price/i,
+  /application\/ld\+json/i,
+  /"availability"\s*:/i,
+  /\b(in-stock|out-of-stock)\b/i,
+  /rupture de stock/i,
+];
+
+function hasRealContent(html: string): boolean {
+  return REAL_CONTENT_PATTERNS.filter((p) => p.test(html)).length >= 2;
+}
 
 function buildHeaders(referer?: string, sameOrigin = false): Record<string, string> {
   return {
@@ -54,7 +77,10 @@ function jitter(baseMs: number): Promise<void> {
 
 export function isBotBlocked(html: string): boolean {
   if (html.length < 800) return true;
-  return BOT_PATTERNS.some((p) => p.test(html));
+  if (STRONG_BOT_PATTERNS.some((p) => p.test(html))) return true;
+  // Les signaux faibles ne comptent que si la page n'a pas de vrai contenu produit.
+  if (WEAK_BOT_PATTERNS.some((p) => p.test(html)) && !hasRealContent(html)) return true;
+  return false;
 }
 
 async function fetchOnce(url: string, headers: Record<string, string>): Promise<Response | null> {
