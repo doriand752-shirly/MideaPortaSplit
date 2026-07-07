@@ -18,6 +18,7 @@ Usage :
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 import time
 import webbrowser
@@ -82,16 +83,34 @@ def optimea_add_to_cart_url(qty: int) -> str:
     return f"{OPTIMEA_PRODUCT_URL}?add-to-cart={OPTIMEA_PRODUCT_ID}&quantity={qty}"
 
 
-def check_optimea(session: requests.Session) -> tuple[bool, str | None]:
+_PRICE_RE = re.compile(r"(\d{1,4}(?:[.,]\d{2})?)\s*€")
+
+
+def _extract_optimea_price(html: str) -> str | None:
+    # Le prix WooCommerce (999,00 &nbsp; <span>€</span>) casse le regex direct :
+    # on lit le prix fiable du JSON-LD / meta ("price": "999.00").
+    m = re.search(r'"price"\s*:\s*"?(\d+(?:[.,]\d+)?)"?', html)
+    if not m:
+        m = re.search(r'itemprop=["\']price["\'][^>]*content=["\'](\d+(?:[.,]\d+)?)', html)
+    if not m:
+        return None
+    value = float(m.group(1).replace(",", "."))
+    return f"{value:.2f} €".replace(".", ",")
+
+
+def check_optimea(session: requests.Session) -> tuple[bool, str | None, str]:
+    """Retourne (en_stock, url, detail)."""
     try:
         resp = session.get(OPTIMEA_PRODUCT_URL, timeout=15)
-    except requests.RequestException:
-        return False, None
+    except requests.RequestException as exc:
+        return False, None, f"erreur reseau ({exc.__class__.__name__})"
     if not resp.ok:
-        return False, None
+        return False, None, f"HTTP {resp.status_code}"
     low = resp.text.lower()
+    price = _extract_optimea_price(resp.text)
+    price_txt = f", {price}" if price else ""
     if "out-of-stock" in low or "rupture de stock" in low or "outofstock" in low:
-        return False, None
+        return False, None, f"rupture{price_txt}"
     compact = low.replace(" ", "")
     in_stock = (
         "single_add_to_cart_button" in low
@@ -99,14 +118,22 @@ def check_optimea(session: requests.Session) -> tuple[bool, str | None]:
         or '"availability":"instock"' in compact
         or "in-stock" in low
     )
-    return in_stock, None
+    label = "EN STOCK" if in_stock else "statut indetermine"
+    return in_stock, None, f"{label}{price_txt}"
 
 
-def check_manomano() -> tuple[bool, str | None]:
+def check_manomano() -> tuple[bool, str | None, str]:
+    """Retourne (en_stock, url, detail) via ClimRadar."""
     offer = get_climradar_stock("manomano")
     if offer is None:
-        return False, None
-    return offer.in_stock, (offer.url or MANOMANO_URL)
+        return False, None, "absent de ClimRadar"
+    price_txt = f", {offer.price:.2f} €".replace(".", ",") if offer.price else ""
+    freshness = ""
+    if offer.last_update_min is not None:
+        freshness = f", MAJ il y a {offer.last_update_min} min"
+    label = "EN STOCK" if offer.in_stock else "rupture"
+    detail = f"{label}{price_txt}{freshness} (ClimRadar)"
+    return offer.in_stock, (offer.url or MANOMANO_URL), detail
 
 
 def handle_optimea(session: requests.Session, qty: int, open_browser: bool) -> None:
@@ -154,16 +181,16 @@ def run(*, once: bool, interval: int, qty: int, open_browser: bool, only: str | 
         statuses: list[str] = []
 
         if "optimea" in targets and "optimea" not in done:
-            in_stock, _ = check_optimea(session)
-            statuses.append(f"Optimea={'STOCK' if in_stock else 'rupture'}")
+            in_stock, _, detail = check_optimea(session)
+            statuses.append(f"Optimea: {detail}")
             if in_stock:
                 print(f"\n[{stamp}] OPTIMEA EN STOCK !", flush=True)
                 handle_optimea(session, qty, open_browser)
                 done.add("optimea")
 
         if "manomano" in targets and "manomano" not in done:
-            in_stock, url = check_manomano()
-            statuses.append(f"ManoMano={'STOCK' if in_stock else 'rupture'}")
+            in_stock, url, detail = check_manomano()
+            statuses.append(f"ManoMano: {detail}")
             if in_stock:
                 print(f"\n[{stamp}] MANOMANO EN STOCK !", flush=True)
                 handle_manomano(url or MANOMANO_URL, open_browser)
