@@ -4,7 +4,7 @@ import requests
 from src.local_stores import _parse_climradar_store_entries, _unescape, _field
 
 h = requests.get(
-    "https://climradar.fr/stock/portasplit?cp=33400",
+    "https://climradar.fr/stock/portasplit?cp=33000",
     headers={"User-Agent": "Mozilla/5.0"},
     timeout=20,
 ).text

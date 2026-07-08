@@ -25,7 +25,7 @@ def parse_city_page(url: str) -> list[tuple]:
     return stores
 
 
-user_lat, user_lon, _ = geocode_postal_code("33400")
+user_lat, user_lon, _ = geocode_postal_code("33000")
 
 for city in ["bordeaux", "limoges", "la-rochelle", "toulouse", "nantes", "perigueux"]:
     u = f"https://climradar.fr/stock/portasplit/{city}"
@@ -38,4 +38,4 @@ for city in ["bordeaux", "limoges", "la-rochelle", "toulouse", "nantes", "perigu
         if cp:
             lat, lon, _ = geocode_postal_code(cp)
             km = round(_haversine_km(user_lat, user_lon, lat, lon), 1)
-        print(f"  {name} | {loc} | from33400={km}km | stock={stock}")
+        print(f"  {name} | {loc} | from33000={km}km | stock={stock}")

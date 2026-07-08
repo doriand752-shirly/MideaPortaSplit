@@ -2,7 +2,7 @@ import re
 import requests
 
 BASE = "https://climradar.fr"
-html = requests.get(f"{BASE}/stock/portasplit?cp=33400", headers={"User-Agent": "Mozilla/5.0"}, timeout=30).text
+html = requests.get(f"{BASE}/stock/portasplit?cp=33000", headers={"User-Agent": "Mozilla/5.0"}, timeout=30).text
 chunks = sorted(set(re.findall(r"/_next/static/chunks/[^\"']+\.js", html)))
 for c in chunks:
     if "page" in c or "stock" in c:

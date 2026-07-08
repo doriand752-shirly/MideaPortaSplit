@@ -185,7 +185,7 @@ async function checkRetailer(
   };
 }
 
-export async function checkAllDirect(postalCode = '33400'): Promise<DirectCheckResult[]> {
+export async function checkAllDirect(postalCode = '33000'): Promise<DirectCheckResult[]> {
   const open = MONITORED_RETAILERS.filter((r) => !PROTECTED_RETAILER_IDS.has(r.id));
   const protectedOnes = MONITORED_RETAILERS.filter((r) => PROTECTED_RETAILER_IDS.has(r.id));
 

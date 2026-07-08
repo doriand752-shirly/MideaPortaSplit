@@ -196,7 +196,7 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Ignorer la verification en ligne (magasins uniquement)",
     )
-    parser.add_argument("--postal-code", help="Code postal (ex: 33400)")
+    parser.add_argument("--postal-code", help="Code postal (ex: 33000)")
     parser.add_argument("--radius-km", type=float, help="Rayon magasins en km")
     parser.add_argument(
         "--no-store-alerts",

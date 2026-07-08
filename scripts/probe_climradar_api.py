@@ -9,7 +9,7 @@ HEADERS = {"User-Agent": "Mozilla/5.0", "Accept": "application/json"}
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 PRODUCT_ID = "portasplit"
-USER_CP = "33400"
+USER_CP = "33000"
 RADIUS_KM = 100
 
 
@@ -53,7 +53,7 @@ for store_id, entries in data["stockByStore"].items():
         f"last={entry.get('lastSeenMinAgo')}min"
     )
 
-# Local stores near 33400
+# Local stores near 33000
 ulat, ulon = geocode(USER_CP)
 print(f"\n=== Stores near {USER_CP} ({RADIUS_KM}km) ===")
 near = []

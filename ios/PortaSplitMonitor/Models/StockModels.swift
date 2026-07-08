@@ -53,7 +53,7 @@ struct AppSettings: Codable, Equatable {
     var backgroundRefreshEnabled: Bool
 
     static let `default` = AppSettings(
-        postalCode: "33400",
+        postalCode: "33000",
         radiusKm: 100,
         intervalMinutes: 2,
         confirmStock: true,

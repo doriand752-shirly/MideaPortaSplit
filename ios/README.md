@@ -58,7 +58,7 @@ open PortaSplitMonitor.xcodeproj
 
 1. Autoriser les **notifications** au lancement
 2. Onglet **Réglages** :
-   - Code postal : `33400`
+   - Code postal : `33000`
    - Rayon : `100 km`
    - Intervalle : `2 min`
 3. Appuyer sur **Démarrer** (ou laisser l’app active au premier lancement)

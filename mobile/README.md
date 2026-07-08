@@ -30,7 +30,7 @@ npx.cmd expo start
 1. Scanner le QR code avec l’appareil photo de l’iPhone
 2. Ouvrir dans **Expo Go**
 3. Autoriser les **notifications**
-4. Onglet **Réglages** → code postal `33400`, rayon `100 km`, intervalle `2 min`
+4. Onglet **Réglages** → code postal `33000`, rayon `100 km`, intervalle `2 min`
 
 ---
 

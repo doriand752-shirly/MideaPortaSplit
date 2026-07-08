@@ -73,7 +73,7 @@ export interface AppSettings {
 }
 
 export const DEFAULT_SETTINGS: AppSettings = {
-  postalCode: '33400',
+  postalCode: '33000',
   radiusKm: 200,
   intervalMinutes: CLOUD_MONITOR_INTERVAL_MIN,
   confirmStock: true,

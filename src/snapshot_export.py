@@ -30,6 +30,14 @@ SNAPSHOT_ALERT_DATES_FIELD = "alertDates"
 SNAPSHOT_STOCK_STATE_FIELD = "stockState"
 
 
+def _public_postal_code(postal_code: str) -> str:
+    """Masque le code postal exact dans le snapshot public (depot GitHub)."""
+    cp = postal_code.strip()
+    if len(cp) >= 2:
+        return f"{cp[:2]}***"
+    return "***"
+
+
 def _parse_price(raw: str | None) -> float | None:
     if not raw:
         return None
@@ -124,7 +132,7 @@ def build_snapshot(
     payload: dict[str, Any] = {
         "schemaVersion": SNAPSHOT_VERSION,
         "checkedAt": datetime.now(timezone.utc).isoformat(),
-        "postalCode": postal_code,
+        "postalCode": _public_postal_code(postal_code),
         "radiusKm": radius_km,
         "monitoredDepartments": _department_labels(postal_code),
         "onlineOffers": [_online_offer(r) for r in online_results],

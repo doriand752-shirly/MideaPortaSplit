@@ -5,12 +5,12 @@ from src.local_stores import _parse_climradar_store_entries, _parse_climradar_ci
 import requests
 
 cp = requests.get(
-    "https://climradar.fr/stock/portasplit?cp=33400",
+    "https://climradar.fr/stock/portasplit?cp=33000",
     headers={"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15"},
     timeout=25,
 ).text
 entries = _parse_climradar_store_entries(cp)
-print("cp33400 json entries", len(entries))
+print("cp33000 json entries", len(entries))
 for e in entries[:8]:
     print(e)
 
@@ -24,5 +24,5 @@ print("\nbordeaux lm city rows", len(rows))
 for r in rows[:5]:
     print(r)
 
-stores = fetch_local_stores("33400", 200)
+stores = fetch_local_stores("33000", 200)
 print("\nfetch_local_stores total", len(stores), "in stock", sum(1 for s in stores if s.in_stock))

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Midea PortaSplit — Stock en direct</title>
+  <meta name="description" content="Suivi en temps réel du stock Midea PortaSplit (en ligne et magasins)." />
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #111a2e;
+      --panel-2: #16213a;
+      --text: #e8eefc;
+      --muted: #93a4c3;
+      --accent: #2563eb;
+      --accent-2: #3b82f6;
+      --ok: #22c55e;
+      --warn: #f59e0b;
+      --bad: #ef4444;
+      --border: rgba(148, 163, 184, 0.18);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(circle at top, #13203a 0%, var(--bg) 55%);
+      color: var(--text);
+      line-height: 1.45;
+      min-height: 100vh;
+    }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px 48px; }
+    header { margin-bottom: 20px; }
+    h1 { margin: 0 0 6px; font-size: clamp(1.5rem, 3vw, 2rem); }
+    .sub { color: var(--muted); font-size: 0.95rem; }
+
+    .toolbar {
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+      margin: 18px 0 22px;
+    }
+    .pill {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .pill strong { color: var(--text); }
+    button, .btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 9px 14px;
+      cursor: pointer;
+      font: inherit;
+    }
+    button:hover, .btn:hover { border-color: var(--accent-2); }
+    .btn-primary { background: var(--accent); border-color: transparent; }
+    .btn-primary:hover { background: var(--accent-2); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+    }
+    .stat .label { color: var(--muted); font-size: 0.85rem; }
+    .stat .value { font-size: 1.6rem; font-weight: 700; margin-top: 4px; }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+    }
+    section h2 {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .grid { display: grid; gap: 10px; }
+    .card {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: grid;
+      gap: 6px;
+    }
+    .row { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+    .name { font-weight: 600; }
+    .meta { color: var(--muted); font-size: 0.88rem; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge.ok { background: rgba(34, 197, 94, 0.15); color: #86efac; }
+    .badge.no { background: rgba(148, 163, 184, 0.12); color: #cbd5e1; }
+    .badge.err { background: rgba(245, 158, 11, 0.15); color: #fcd34d; }
+    .badge.action { background: rgba(37, 99, 235, 0.2); color: #93c5fd; }
+
+    a { color: #93c5fd; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .empty { color: var(--muted); padding: 8px 2px; }
+    .error {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fecaca;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+    }
+
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .filters label {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 999px; padding: 6px 12px; font-size: 0.85rem;
+      cursor: pointer;
+    }
+    input[type="checkbox"] { accent-color: var(--accent); }
+
+    footer {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Midea PortaSplit — Stock en direct</h1>
+      <p class="sub">Données issues du moniteur GitHub Actions (mise à jour ~toutes les 10 min).</p>
+    </header>
+
+    <div id="error" class="error" hidden></div>
+
+    <div class="toolbar">
+      <span class="pill">Dernière vérif : <strong id="checkedAt">—</strong></span>
+      <span class="pill">Zone : <strong id="zone">—</strong></span>
+      <button type="button" id="refreshBtn" class="btn-primary">Rafraîchir</button>
+      <label class="pill"><input type="checkbox" id="autoRefresh" checked /> Auto 60s</label>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="label">En ligne dispo</div><div class="value" id="statOnline">—</div></div>
+      <div class="stat"><div class="label">Magasins en stock</div><div class="value" id="statStores">—</div></div>
+      <div class="stat"><div class="label">Actionnable</div><div class="value" id="statAction">—</div></div>
+      <div class="stat"><div class="label">Revendeurs suivis</div><div class="value" id="statRetailers">—</div></div>
+    </div>
+
+    <section id="actionSection" hidden>
+      <h2>🟢 Disponible maintenant</h2>
+      <div id="actionList" class="grid"></div>
+    </section>
+
+    <section>
+      <h2>🛒 Stock en ligne</h2>
+      <div class="filters">
+        <label><input type="checkbox" id="onlyStockOnline" /> En stock uniquement</label>
+      </div>
+      <div id="onlineList" class="grid"></div>
+    </section>
+
+    <section>
+      <h2>🏪 Magasins proches</h2>
+      <div class="filters">
+        <label><input type="checkbox" id="onlyStockStores" /> En stock uniquement</label>
+      </div>
+      <div id="storeList" class="grid"></div>
+    </section>
+
+    <footer>
+      <a href="https://github.com/doriand752-shirly/MideaPortaSplit">Code source</a>
+      · Données : <code>data/snapshot.json</code>
+    </footer>
+  </div>
+
+  <script>
+    const SNAPSHOT_URL = 'https://raw.githubusercontent.com/doriand752-shirly/MideaPortaSplit/master/data/snapshot.json';
+    const $ = (id) => document.getElementById(id);
+
+    let timer = null;
+    let lastData = null;
+
+    function fmtDate(iso) {
+      if (!iso) return '—';
+      const d = new Date(iso);
+      return d.toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'medium' });
+    }
+
+    function fmtPrice(v) {
+      if (v == null) return '—';
+      return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(v);
+    }
+
+    function badge(inStock, checkError) {
+      if (checkError) return '<span class="badge err">Erreur vérif</span>';
+      return inStock
+        ? '<span class="badge ok">En stock</span>'
+        : '<span class="badge no">Rupture</span>';
+    }
+
+    function renderOnline(list) {
+      const only = $('onlyStockOnline').checked;
+      const items = (list || []).filter((o) => !only || o.inStock);
+      if (!items.length) return '<p class="empty">Aucune offre à afficher.</p>';
+      return items.map((o) => `
+        <article class="card">
+          <div class="row">
+            <div>
+              <div class="name">${escapeHtml(o.retailerName)}</div>
+              <div class="meta">${escapeHtml(o.sourceDetail || '')}</div>
+            </div>
+            <div>${badge(o.inStock, o.checkError)}</div>
+          </div>
+          <div class="row">
+            <span class="meta">Prix : <strong>${fmtPrice(o.price)}</strong>${o.deliveryEligible ? ' · Livraison éligible' : ''}</span>
+            <a href="${escapeAttr(o.url)}" target="_blank" rel="noopener">Voir l'offre →</a>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function renderStores(list) {
+      const only = $('onlyStockStores').checked;
+      const items = (list || []).filter((s) => !only || s.inStock);
+      if (!items.length) return '<p class="empty">Aucun magasin à afficher.</p>';
+      return items.map((s) => `
+        <article class="card">
+          <div class="row">
+            <div>
+              <div class="name">${escapeHtml(s.storeName)}</div>
+              <div class="meta">${escapeHtml(s.location)} · ${s.distanceKm} km · MAJ ${s.lastUpdateMin ?? '?'} min</div>
+            </div>
+            <div>${badge(s.inStock, false)}</div>
+          </div>
+          <div class="row">
+            <span class="meta">Prix : <strong>${fmtPrice(s.price)}</strong></span>
+            <a href="${escapeAttr(s.productURL)}" target="_blank" rel="noopener">Fiche produit →</a>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function renderAction(list) {
+      if (!list || !list.length) return '';
+      return list.map((a) => `
+        <article class="card">
+          <div class="row">
+            <div>
+              <div class="name">${escapeHtml(a.title)}</div>
+              <div class="meta">${escapeHtml(a.detail || '')}</div>
+            </div>
+            <span class="badge action">${a.kind === 'magasin' ? 'Magasin' : 'Livraison'}</span>
+          </div>
+          <div class="row">
+            <span class="meta">Prix : <strong>${fmtPrice(a.price)}</strong></span>
+            <a href="${escapeAttr(a.url)}" target="_blank" rel="noopener">Commander →</a>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function escapeHtml(s) {
+      return String(s ?? '').replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[c]);
+    }
+
+    function escapeAttr(s) {
+      return escapeHtml(s).replace(/`/g, '&#96;');
+    }
+
+    function paint(data) {
+      lastData = data;
+      $('checkedAt').textContent = fmtDate(data.checkedAt);
+      $('zone').textContent = `${data.postalCode || '?'} · ${data.radiusKm || '?'} km`;
+
+      const onlineIn = (data.onlineOffers || []).filter((o) => o.inStock).length;
+      const storesIn = (data.localStores || []).filter((s) => s.inStock).length;
+      const actionCount = (data.actionable || []).length;
+
+      $('statOnline').textContent = onlineIn;
+      $('statStores').textContent = storesIn;
+      $('statAction').textContent = actionCount;
+      $('statRetailers').textContent = (data.onlineOffers || []).length;
+
+      const actionHtml = renderAction(data.actionable);
+      $('actionSection').hidden = !actionHtml;
+      $('actionList').innerHTML = actionHtml || '';
+
+      $('onlineList').innerHTML = renderOnline(data.onlineOffers);
+      $('storeList').innerHTML = renderStores(data.localStores);
+    }
+
+    async function load() {
+      $('error').hidden = true;
+      try {
+        const res = await fetch(`${SNAPSHOT_URL}?t=${Date.now()}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        paint(data);
+      } catch (err) {
+        $('error').hidden = false;
+        $('error').textContent = `Impossible de charger les données : ${err.message}`;
+      }
+    }
+
+    function scheduleAuto() {
+      if (timer) clearInterval(timer);
+      if ($('autoRefresh').checked) timer = setInterval(load, 60000);
+    }
+
+    ['onlyStockOnline', 'onlyStockStores'].forEach((id) => {
+      $(id).addEventListener('change', () => lastData && paint(lastData));
+    });
+    $('refreshBtn').addEventListener('click', load);
+    $('autoRefresh').addEventListener('change', scheduleAuto);
+
+    load();
+    scheduleAuto();
+  </script>
+</body>
+</html>

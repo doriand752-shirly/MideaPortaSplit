@@ -6,11 +6,19 @@ Outil Python qui surveille les principales pages de vente du **Midea PortaSplit*
 
 - Surveillance de **9 revendeurs** (Boulanger, Castorama, Optimea, Darty, Leroy Merlin, Amazon, Fnac, ManoMano)
 - Source **ClimRadar** pour le stock en ligne (Darty, Leroy Merlin, Amazon, Fnac, ManoMano)
-- **Magasins locaux** : surveillance des points de vente dans un rayon configurable (ex. 100 km autour du 33400)
+- **Magasins locaux** : surveillance des points de vente dans un rayon configurable (ex. 100 km autour du 33000)
 - Verification directe pour Boulanger, Castorama, Optimea
 - Alertes **Telegram**, **Discord** ou **ntfy.sh** (push mobile sans bot)
 - Persistance de l'état pour ne pas renvoyer la même alerte
 - Mode boucle (toutes les 5 min par défaut) ou vérification unique
+
+## Tableau de bord web
+
+Les données de stock exportées par GitHub Actions sont visibles en ligne :
+
+**https://doriand752-shirly.github.io/MideaPortaSplit/**
+
+(Mise à jour automatique ~toutes les 10 min via `data/snapshot.json`.)
 
 ## Installation
 
@@ -41,7 +49,7 @@ Ou en une commande Windows :
 TELEGRAM_BOT_TOKEN=123456:ABC...
 TELEGRAM_CHAT_ID=987654321
 CHECK_INTERVAL_MINUTES=5
-POSTAL_CODE=33400
+POSTAL_CODE=33000
 LOCAL_RADIUS_KM=100
 ```
 
@@ -53,7 +61,7 @@ LOCAL_RADIUS_KM=100
 
 Vous etes alerte uniquement si **l'une** de ces conditions est remplie :
 
-1. **Magasin** : stock en retrait dans un magasin a moins de `LOCAL_RADIUS_KM` de `POSTAL_CODE` (ex. Castorama Merignac, Leroy Merlin Gradignan)
+1. **Magasin** : stock en retrait dans un magasin a moins de `LOCAL_RADIUS_KM` de `POSTAL_CODE` (ex. Castorama Bordeaux, Leroy Merlin Gradignan)
 2. **Livraison** : stock en ligne avec livraison vers votre code postal (Boulanger, Castorama, Optimea, Darty, Amazon, Fnac, ManoMano)
 
 Le stock Leroy Merlin « national » (ex. magasin a Nice) ne declenche pas d'alerte livraison vers Bordeaux — seulement un magasin proche de chez vous.
@@ -134,7 +142,7 @@ Repo GitHub → **Settings** → **Secrets and variables** → **Actions** :
 
 | Secret | Obligatoire | Exemple |
 |--------|-------------|---------|
-| `POSTAL_CODE` | oui | `33400` |
+| `POSTAL_CODE` | oui | `33000` |
 | `TELEGRAM_BOT_TOKEN` | un canal min. | token @BotFather |
 | `TELEGRAM_CHAT_ID` | si Telegram | `987654321` |
 | `NTFY_TOPIC` | si ntfy | `midea-doria-secret` |

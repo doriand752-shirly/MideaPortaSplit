@@ -165,7 +165,7 @@ def test_telegram() -> tuple[bool, str]:
             bot_token,
             chat_id,
             "Test MideaPortaSplit OK\n\n"
-            "Alertes : magasin < 100 km du 33400 OU livraison vers votre code postal.",
+            "Alertes : magasin < 100 km du 33000 OU livraison vers votre code postal.",
         )
     except requests.HTTPError as exc:
         body = exc.response.text[:300] if exc.response is not None else ""

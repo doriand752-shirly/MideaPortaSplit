@@ -8,7 +8,7 @@ HUBS = [
     "brive", "tarbes", "montauban",
 ]
 
-user_lat, user_lon, _ = geocode_postal_code("33400")
+user_lat, user_lon, _ = geocode_postal_code("33000")
 
 for slug in HUBS:
     url = f"https://climradar.fr/stock/portasplit/{slug}"

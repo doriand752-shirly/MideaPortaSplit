@@ -16,7 +16,7 @@ def fetch(path, rsc=False):
     r = requests.get(f"https://climradar.fr{path}", headers=h, timeout=30)
     return r.text
 
-for path in ["/produit/portasplit", "/stock/portasplit?cp=33400"]:
+for path in ["/produit/portasplit", "/stock/portasplit?cp=33000"]:
     for rsc in [False, True]:
         t = fetch(path, rsc=rsc)
         label = ("RSC" if rsc else "HTML") + " " + path
@@ -27,7 +27,7 @@ for path in ["/produit/portasplit", "/stock/portasplit?cp=33400"]:
             "onlineOffers", "storeOffers", "retailers",
             "lowPrice", "highPrice", "AggregateOffer",
             "Darty", "Boulanger", "Castorama", "ManoMano",
-            "33400", "Merignac", "merignac",
+            "33000", "Merignac", "merignac",
         ]
         for kw in keywords:
             c = t.count(kw)

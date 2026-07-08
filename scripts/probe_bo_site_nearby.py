@@ -18,7 +18,7 @@ filters = [
     {"filter": {"type": "NEARBY", "zipCode": "33700", "radius": 50}},
     {"filter": {"type": "NEARBY", "cityCode": "33281", "radius": 50}},
     {"filter": {"type": "NEARBY", "latitude": 44.8323, "longitude": -0.6817, "radius": 50}},
-    {"filter": {"type": "NEARBY", "zipCode": "33400", "radius": 100}},
+    {"filter": {"type": "NEARBY", "zipCode": "33000", "radius": 100}},
 ]
 for body in filters:
     r = requests.post(base, headers=site_hdr, json=body, timeout=15)
