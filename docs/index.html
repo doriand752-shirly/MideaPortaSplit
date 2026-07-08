@@ -487,15 +487,68 @@
     }
 
     async function fetchOptimeaProduct() {
+      const errors = [];
+
+      // Direct (souvent bloqué par CORS depuis github.io, mais on tente)
       try {
         const direct = await fetch(OPTIMEA_API, { cache: 'no-store' });
-        if (direct.ok) return { data: await direct.json(), via: 'direct' };
-      } catch (_) { /* CORS attendu depuis github.io */ }
+        if (direct?.ok) {
+          const data = await direct.json();
+          if (data && typeof data.is_in_stock === 'boolean') {
+            return { data, via: 'direct' };
+          }
+        } else if (direct) {
+          errors.push(`direct HTTP ${direct.status}`);
+        }
+      } catch (e) {
+        errors.push(`direct: ${e.message}`);
+      }
 
-      const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(OPTIMEA_API)}`;
-      const res = await fetch(proxy, { cache: 'no-store' });
-      if (!res.ok) throw new Error(`Proxy HTTP ${res.status}`);
-      return { data: await res.json(), via: 'proxy' };
+      const proxies = [
+        {
+          name: 'allorigins-raw',
+          url: (target) => `https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`,
+          parse: async (res) => res.json(),
+        },
+        {
+          name: 'allorigins-get',
+          url: (target) => `https://api.allorigins.win/get?url=${encodeURIComponent(target)}`,
+          parse: async (res) => {
+            const wrap = await res.json();
+            const raw = wrap?.contents ?? wrap?.content;
+            return typeof raw === 'string' ? JSON.parse(raw) : raw;
+          },
+        },
+        {
+          name: 'corsproxy',
+          url: (target) => `https://corsproxy.io/?${encodeURIComponent(target)}`,
+          parse: async (res) => res.json(),
+        },
+        {
+          name: 'codetabs',
+          url: (target) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(target)}`,
+          parse: async (res) => res.json(),
+        },
+      ];
+
+      for (const proxy of proxies) {
+        try {
+          const res = await fetch(proxy.url(OPTIMEA_API), { cache: 'no-store' });
+          if (!res || !res.ok) {
+            errors.push(`${proxy.name} HTTP ${res ? res.status : '?'}`);
+            continue;
+          }
+          const data = await proxy.parse(res);
+          if (data && typeof data.is_in_stock === 'boolean') {
+            return { data, via: proxy.name };
+          }
+          errors.push(`${proxy.name}: réponse invalide`);
+        } catch (e) {
+          errors.push(`${proxy.name}: ${e.message}`);
+        }
+      }
+
+      throw new Error(errors.join(' · ') || 'Aucune source disponible');
     }
 
     function paintOptimea(inStock, detail, via, err) {
@@ -517,11 +570,14 @@
 
     async function checkOptimea() {
       try {
-        const { data, via } = await fetchOptimeaProduct();
+        const result = await fetchOptimeaProduct();
+        if (!result?.data) throw new Error('Réponse Optimea vide');
+        const { data, via } = result;
         const inStock = Boolean(data.is_in_stock);
         const avail = data.stock_availability?.text || (inStock ? 'En stock' : 'Rupture');
+        const minor = data.prices?.currency_minor_unit ?? 2;
         const price = data.prices?.price
-          ? `${(Number(data.prices.price) / 100).toFixed(2)} €`
+          ? `${(Number(data.prices.price) / 10 ** minor).toFixed(2)} €`
           : null;
         const detail = price ? `${avail} — ${price}` : avail;
         paintOptimea(inStock, detail, via, null);
