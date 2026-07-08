@@ -136,7 +136,17 @@
       margin-bottom: 16px;
     }
 
-    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .callout {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(59, 130, 246, 0.08));
+      border: 1px solid rgba(59, 130, 246, 0.45);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    .callout h2 { margin: 0 0 8px; font-size: 1.1rem; }
+    .callout p { margin: 0 0 10px; color: var(--muted); font-size: 0.92rem; }
+    .callout .links { display: flex; flex-wrap: wrap; gap: 8px; }
     .filters label {
       display: inline-flex; align-items: center; gap: 6px;
       background: var(--panel-2); border: 1px solid var(--border);
@@ -163,6 +173,18 @@
       <h1>Midea PortaSplit — Stock en direct</h1>
       <p class="sub">Données issues du moniteur GitHub Actions (mise à jour ~toutes les 10 min).</p>
     </header>
+
+    <div class="callout">
+      <h2>⚡ Optimea — surveillance locale & ajout au panier</h2>
+      <p>
+        Le moniteur cloud ne peut pas lire Optimea (blocage IP datacenter).
+        Lancez le watcher sur votre PC : alerte Telegram + lien panier en ~60 s.
+      </p>
+      <div class="links">
+        <a class="btn btn-primary" href="https://github.com/doriand752-shirly/MideaPortaSplit/blob/master/OPTIMEA.md">Guide Optimea</a>
+        <a class="btn" href="https://www.optimea.fr/product/climatiseur-split-mobile-midea/?add-to-cart=5959&quantity=1" target="_blank" rel="noopener">Lien panier direct</a>
+      </div>
+    </div>
 
     <div id="error" class="error" hidden></div>
 

@@ -1,18 +1,16 @@
-"""Surveille Optimea + ManoMano et agit des le retour en stock.
+"""Surveille Optimea + ManoMano et alerte des le retour en stock.
 
-- Optimea (WooCommerce) : ouvre l'URL d'ajout au panier dans TON navigateur
-  (l'article atterrit dans ta propre session) + alerte Telegram.
-- ManoMano (protege DataDome) : stock lu via ClimRadar, ouvre la page produit
-  dans le navigateur + alerte Telegram (pas d'ajout auto possible cote client).
+- Optimea (WooCommerce) : verification depuis votre IP + alerte Telegram
+  avec le lien d'ajout au panier (?add-to-cart=5959). Voir OPTIMEA.md.
+- ManoMano : stock lu via ClimRadar + alerte Telegram.
 
-Verification par defaut : toutes les 60 s (evite tout risque de blocage).
+Verification par defaut : toutes les 60 s.
 
 Usage :
-    python scripts/optimea_grab.py                 # boucle 60s, ouvre le navigateur
+    python scripts/optimea_grab.py --only optimea
     python scripts/optimea_grab.py --interval 90
-    python scripts/optimea_grab.py --once          # une passe
-    python scripts/optimea_grab.py --no-open        # sans ouvrir le navigateur
-    python scripts/optimea_grab.py --only optimea   # une seule cible
+    python scripts/optimea_grab.py --once
+    python scripts/optimea_grab.py
 """
 
 from __future__ import annotations

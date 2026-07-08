@@ -2,6 +2,29 @@
 
 Outil Python qui surveille les principales pages de vente du **Midea PortaSplit** (MMCS-12HRN8-QRD0, 12 000 BTU, ~999 €) et vous alerte dès qu'un revendeur le remet en stock.
 
+---
+
+## Optimea — alerte rapide + ajout au panier (à lire en premier)
+
+Optimea est le distributeur officiel, mais le **moniteur cloud ne peut pas le surveiller** (site inaccessible depuis les serveurs GitHub). La solution : un **petit script sur votre PC** qui vérifie toutes les **60 secondes** et vous envoie le **lien d'ajout au panier** par Telegram dès le restock.
+
+| Action | Lien |
+|--------|------|
+| **Guide complet** (installation, FAQ, schéma) | **[OPTIMEA.md](OPTIMEA.md)** |
+| **Lien panier direct** (favori à garder sous la main) | [Ajouter au panier Optimea](https://www.optimea.fr/product/climatiseur-split-mobile-midea/?add-to-cart=5959&quantity=1) |
+| **Tableau de bord** (tous revendeurs, mis à jour ~10 min) | [doriand752-shirly.github.io/MideaPortaSplit](https://doriand752-shirly.github.io/MideaPortaSplit/) |
+
+**Démarrage en 2 commandes** (après avoir configuré `.env` — voir [Telegram](#configuration-telegram)) :
+
+```powershell
+pip install -r requirements.txt
+python scripts/optimea_grab.py --only optimea
+```
+
+> Le cloud GitHub et le watcher local sont **complémentaires** : le premier couvre Darty, Amazon, magasins, etc. ; le second comble le trou Optimea.
+
+---
+
 ## Fonctionnalités
 
 - Surveillance de **9 revendeurs** (Boulanger, Castorama, Optimea, Darty, Leroy Merlin, Amazon, Fnac, ManoMano)
@@ -11,6 +34,7 @@ Outil Python qui surveille les principales pages de vente du **Midea PortaSplit*
 - Alertes **Telegram**, **Discord** ou **ntfy.sh** (push mobile sans bot)
 - Persistance de l'état pour ne pas renvoyer la même alerte
 - Mode boucle (toutes les 5 min par défaut) ou vérification unique
+- **Watcher Optimea local** : voir [OPTIMEA.md](OPTIMEA.md) (60 s, lien panier Telegram)
 
 ## Tableau de bord web
 
