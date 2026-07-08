@@ -13,6 +13,16 @@ Le **Midea PortaSplit** revient parfois en stock chez [Optimea](https://www.opti
 
 **→ Lancez le watcher sur votre PC quand vous attendez un restock Optimea.**
 
+### Alternative navigateur (non optimale)
+
+Le [tableau de bord web](https://doriand752-shirly.github.io/MideaPortaSplit/) propose une **surveillance Optimea dans le navigateur** (60 s, son + notification) :
+
+- ✅ Pratique sans installer Python
+- ⚠️ **Onglet obligatoirement ouvert** — pas de Telegram, pas de veille PC
+- ⚠️ Passe par un **proxy CORS** tiers (moins fiable que le watcher local)
+
+**→ À utiliser en complément ou en dépannage, pas en remplacement du watcher local.**
+
 ---
 
 ## Lien magique : ajouter au panier en 1 clic

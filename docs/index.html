@@ -147,7 +147,41 @@
     .callout h2 { margin: 0 0 8px; font-size: 1.1rem; }
     .callout p { margin: 0 0 10px; color: var(--muted); font-size: 0.92rem; }
     .callout .links { display: flex; flex-wrap: wrap; gap: 8px; }
-    .filters label {
+    .callout-warn {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(234, 88, 12, 0.06));
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+      color: #fde68a;
+    }
+    .callout-warn strong { color: #fef3c7; }
+    .optimea-panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    .optimea-panel h2 { margin: 0 0 8px; font-size: 1.1rem; }
+    .optimea-status {
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+      margin: 14px 0;
+    }
+    .optimea-status .status-big {
+      font-size: 1.35rem; font-weight: 700;
+    }
+    .optimea-status .status-big.ok { color: #86efac; }
+    .optimea-status .status-big.no { color: #cbd5e1; }
+    .optimea-status .status-big.err { color: #fcd34d; }
+    .optimea-meta { color: var(--muted); font-size: 0.88rem; margin: 0 0 12px; }
+    .optimea-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .btn-danger { background: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.4); }
+    .btn-watch-on { background: var(--ok); border-color: transparent; color: #052e16; font-weight: 600; }
+    .watch-active { outline: 2px solid rgba(34, 197, 94, 0.45); }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
       display: inline-flex; align-items: center; gap: 6px;
       background: var(--panel-2); border: 1px solid var(--border);
       border-radius: 999px; padding: 6px 12px; font-size: 0.85rem;
@@ -175,14 +209,38 @@
     </header>
 
     <div class="callout">
-      <h2>⚡ Optimea — surveillance locale & ajout au panier</h2>
+      <h2>⚡ Optimea — distributeur officiel</h2>
       <p>
         Le moniteur cloud ne peut pas lire Optimea (blocage IP datacenter).
-        Lancez le watcher sur votre PC : alerte Telegram + lien panier en ~60 s.
+        <strong>Solution recommandée :</strong> watcher Python sur votre PC (Telegram + lien panier).
       </p>
       <div class="links">
-        <a class="btn btn-primary" href="https://github.com/doriand752-shirly/MideaPortaSplit/blob/master/OPTIMEA.md">Guide Optimea</a>
+        <a class="btn btn-primary" href="https://github.com/doriand752-shirly/MideaPortaSplit/blob/master/OPTIMEA.md">Guide Optimea (optimal)</a>
         <a class="btn" href="https://www.optimea.fr/product/climatiseur-split-mobile-midea/?add-to-cart=5959&quantity=1" target="_blank" rel="noopener">Lien panier direct</a>
+      </div>
+    </div>
+
+    <div class="optimea-panel" id="optimeaPanel">
+      <h2>🔔 Surveillance Optimea dans le navigateur</h2>
+      <div class="callout-warn">
+        <strong>⚠️ Ce n'est pas la solution optimale.</strong>
+        Fonctionne seulement tant que cet onglet reste ouvert, dépend d'un proxy CORS tiers,
+        et ne remplace pas le <a href="https://github.com/doriand752-shirly/MideaPortaSplit/blob/master/OPTIMEA.md">watcher local</a>
+        (Telegram 24/7, plus fiable). À utiliser en complément ou si vous ne pouvez pas lancer Python.
+      </div>
+      <p class="optimea-meta" id="optimeaHint">
+        Vérification toutes les 60 s via l'API WooCommerce Optimea. Alerte sonore + notification navigateur au retour en stock.
+      </p>
+      <div class="optimea-status">
+        <span class="status-big no" id="optimeaStatusLabel">—</span>
+        <span class="pill">Dernière vérif Optimea : <strong id="optimeaCheckedAt">—</strong></span>
+        <span class="pill" id="optimeaCountdownPill" hidden>Prochaine vérif : <strong id="optimeaCountdown">60</strong> s</span>
+      </div>
+      <p class="optimea-meta" id="optimeaDetail">Cliquez sur « Activer la surveillance » pour démarrer.</p>
+      <div class="optimea-actions">
+        <button type="button" id="optimeaWatchBtn" class="btn-watch-on">Activer la surveillance (60 s)</button>
+        <button type="button" id="optimeaTestSoundBtn" class="btn" hidden>Tester le son</button>
+        <a class="btn" id="optimeaCartBtn" href="https://www.optimea.fr/product/climatiseur-split-mobile-midea/?add-to-cart=5959&quantity=1" target="_blank" rel="noopener">Panier</a>
       </div>
     </div>
 
@@ -373,6 +431,172 @@
 
     load();
     scheduleAuto();
+
+    // --- Surveillance Optimea (navigateur, non optimal) ---
+    const OPTIMEA_API = 'https://www.optimea.fr/wp-json/wc/store/v1/products/5959';
+    const OPTIMEA_CART = 'https://www.optimea.fr/product/climatiseur-split-mobile-midea/?add-to-cart=5959&quantity=1';
+    const OPTIMEA_INTERVAL_MS = 60000;
+
+    let optimeaWatchOn = false;
+    let optimeaTimer = null;
+    let optimeaCountdownTimer = null;
+    let optimeaSecondsLeft = 60;
+    let optimeaLastInStock = null;
+    let optimeaAlerted = false;
+    let audioCtx = null;
+
+    function optimea$(id) { return document.getElementById(id); }
+
+    function ensureAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') return audioCtx.resume();
+      return Promise.resolve();
+    }
+
+    async function playStockAlert() {
+      await ensureAudio();
+      const ctx = audioCtx;
+      const now = ctx.currentTime;
+      for (let i = 0; i < 3; i++) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = 880;
+        gain.gain.setValueAtTime(0.0001, now + i * 0.45);
+        gain.gain.exponentialRampToValueAtTime(0.25, now + i * 0.45 + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.45 + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + i * 0.45);
+        osc.stop(now + i * 0.45 + 0.4);
+      }
+    }
+
+    async function notifyStock(detail) {
+      const title = '🟢 Optimea EN STOCK — PortaSplit';
+      const body = `${detail}\nCommandez vite via le lien panier.`;
+      if ('Notification' in window && Notification.permission === 'granted') {
+        const n = new Notification(title, {
+          body,
+          tag: 'optimea-stock',
+          requireInteraction: true,
+        });
+        n.onclick = () => { window.open(OPTIMEA_CART, '_blank'); n.close(); };
+      }
+      await playStockAlert();
+    }
+
+    async function fetchOptimeaProduct() {
+      try {
+        const direct = await fetch(OPTIMEA_API, { cache: 'no-store' });
+        if (direct.ok) return { data: await direct.json(), via: 'direct' };
+      } catch (_) { /* CORS attendu depuis github.io */ }
+
+      const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(OPTIMEA_API)}`;
+      const res = await fetch(proxy, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`Proxy HTTP ${res.status}`);
+      return { data: await res.json(), via: 'proxy' };
+    }
+
+    function paintOptimea(inStock, detail, via, err) {
+      const label = optimea$('optimeaStatusLabel');
+      const detailEl = optimea$('optimeaDetail');
+      optimea$('optimeaCheckedAt').textContent = new Date().toLocaleTimeString('fr-FR');
+
+      if (err) {
+        label.textContent = 'Erreur';
+        label.className = 'status-big err';
+        detailEl.textContent = err;
+        return;
+      }
+
+      label.textContent = inStock ? 'EN STOCK' : 'Rupture';
+      label.className = `status-big ${inStock ? 'ok' : 'no'}`;
+      detailEl.textContent = `${detail} (source : API Optimea${via === 'proxy' ? ', via proxy CORS' : ''})`;
+    }
+
+    async function checkOptimea() {
+      try {
+        const { data, via } = await fetchOptimeaProduct();
+        const inStock = Boolean(data.is_in_stock);
+        const avail = data.stock_availability?.text || (inStock ? 'En stock' : 'Rupture');
+        const price = data.prices?.price
+          ? `${(Number(data.prices.price) / 100).toFixed(2)} €`
+          : null;
+        const detail = price ? `${avail} — ${price}` : avail;
+        paintOptimea(inStock, detail, via, null);
+
+        if (inStock && optimeaLastInStock === false && !optimeaAlerted) {
+          optimeaAlerted = true;
+          await notifyStock(detail);
+        }
+        if (!inStock) optimeaAlerted = false;
+        optimeaLastInStock = inStock;
+      } catch (err) {
+        paintOptimea(false, '', null, `Vérification impossible : ${err.message}`);
+      }
+    }
+
+    function resetOptimeaCountdown() {
+      optimeaSecondsLeft = OPTIMEA_INTERVAL_MS / 1000;
+      optimea$('optimeaCountdown').textContent = String(optimeaSecondsLeft);
+    }
+
+    function startOptimeaCountdown() {
+      if (optimeaCountdownTimer) clearInterval(optimeaCountdownTimer);
+      resetOptimeaCountdown();
+      optimea$('optimeaCountdownPill').hidden = false;
+      optimeaCountdownTimer = setInterval(() => {
+        optimeaSecondsLeft -= 1;
+        if (optimeaSecondsLeft <= 0) resetOptimeaCountdown();
+        optimea$('optimeaCountdown').textContent = String(Math.max(0, optimeaSecondsLeft));
+      }, 1000);
+    }
+
+    function stopOptimeaWatch() {
+      optimeaWatchOn = false;
+      if (optimeaTimer) clearInterval(optimeaTimer);
+      if (optimeaCountdownTimer) clearInterval(optimeaCountdownTimer);
+      optimeaTimer = null;
+      optimeaCountdownTimer = null;
+      optimea$('optimeaCountdownPill').hidden = true;
+      optimea$('optimeaPanel').classList.remove('watch-active');
+      optimea$('optimeaWatchBtn').textContent = 'Activer la surveillance (60 s)';
+      optimea$('optimeaWatchBtn').className = 'btn-watch-on';
+      optimea$('optimeaTestSoundBtn').hidden = true;
+      optimea$('optimeaHint').textContent =
+        'Surveillance arrêtée. Le watcher local reste la solution recommandée.';
+    }
+
+    async function startOptimeaWatch() {
+      if ('Notification' in window && Notification.permission === 'default') {
+        await Notification.requestPermission();
+      }
+      await ensureAudio();
+      optimeaWatchOn = true;
+      optimea$('optimeaPanel').classList.add('watch-active');
+      optimea$('optimeaWatchBtn').textContent = 'Arrêter la surveillance';
+      optimea$('optimeaWatchBtn').className = 'btn btn-danger';
+      optimea$('optimeaTestSoundBtn').hidden = false;
+      optimea$('optimeaHint').textContent =
+        'Surveillance active — gardez cet onglet ouvert. Notification : '
+        + (Notification.permission === 'granted' ? 'activée' : 'non accordée (son seulement).');
+      await checkOptimea();
+      startOptimeaCountdown();
+      optimeaTimer = setInterval(async () => {
+        await checkOptimea();
+        resetOptimeaCountdown();
+      }, OPTIMEA_INTERVAL_MS);
+    }
+
+    optimea$('optimeaWatchBtn').addEventListener('click', async () => {
+      if (optimeaWatchOn) stopOptimeaWatch();
+      else await startOptimeaWatch();
+    });
+
+    optimea$('optimeaTestSoundBtn').addEventListener('click', async () => {
+      await playStockAlert();
+    });
   </script>
 </body>
 </html>
