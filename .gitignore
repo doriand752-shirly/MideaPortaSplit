@@ -4,6 +4,7 @@ __pycache__/
 .env
 data/state.json
 *.log
+logs/
 scripts/probe_*out*.txt
 scripts/probe_*.txt
 !scripts/probe_*.py

@@ -46,6 +46,7 @@ def run_check(
     postal_code: str | None = None,
     radius_km: float | None = None,
     export_path: Path | None = None,
+    notify_stores: bool = True,
 ) -> list:
     configured_postal, configured_radius = local_config_from_env()
     postal_code = postal_code or configured_postal
@@ -87,6 +88,12 @@ def run_check(
 
     for offer in actionable:
         if dry_run:
+            continue
+
+        # Magasins physiques exclus des notifications (ex: GitHub Actions),
+        # mais conserves dans l'etat/snapshot pour l'app mobile.
+        if not notify_stores and offer.kind == "magasin":
+            store.update_local_store(offer.state_key, True, offer.detail, offer.url)
             continue
 
         if not should_send_stock_alert(store, offer.state_key, today, kind=offer.kind):
@@ -191,6 +198,11 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--postal-code", help="Code postal (ex: 33400)")
     parser.add_argument("--radius-km", type=float, help="Rayon magasins en km")
+    parser.add_argument(
+        "--no-store-alerts",
+        action="store_true",
+        help="Ne pas notifier les magasins physiques (stock en ligne uniquement)",
+    )
     parser.add_argument("--test-telegram", action="store_true", help="Test Telegram")
     parser.add_argument(
         "--test-heartbeat",
@@ -260,6 +272,7 @@ def main(argv: list[str] | None = None) -> int:
             postal_code=args.postal_code,
             radius_km=args.radius_km,
             export_path=args.export,
+            notify_stores=not args.no_store_alerts,
         )
         return 0
 
@@ -276,6 +289,7 @@ def main(argv: list[str] | None = None) -> int:
                 use_browser=not args.no_browser,
                 postal_code=args.postal_code,
                 radius_km=args.radius_km,
+                notify_stores=not args.no_store_alerts,
             )
         except KeyboardInterrupt:
             print("\nArret.")

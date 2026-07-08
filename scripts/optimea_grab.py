@@ -21,7 +21,6 @@ import argparse
 import re
 import sys
 import time
-import webbrowser
 from pathlib import Path
 
 import requests
@@ -153,37 +152,40 @@ def check_manomano() -> tuple[bool, str | None, str]:
     return offer.in_stock, (offer.url or MANOMANO_URL), detail
 
 
-def handle_optimea(session: requests.Session, qty: int, open_browser: bool) -> None:
+def handle_optimea(qty: int, detail: str) -> None:
+    stamp = time.strftime("%d/%m %H:%M:%S")
     grab_url = optimea_add_to_cart_url(qty)
-    if open_browser:
-        webbrowser.open(grab_url)
     msg = (
         "🟢 EN STOCK — Optimea\n"
         "Midea PortaSplit (~999 €)\n\n"
+        f"Detecte le {stamp}\n"
+        f"Detail : {detail}\n\n"
         f"Ajouter direct au panier :\n{grab_url}\n\n"
         f"Page produit :\n{OPTIMEA_PRODUCT_URL}\n\n"
         "Commande vite, les stocks partent vite."
     )
     sent = notify_telegram(msg)
-    print(f"  Optimea : lien panier ouvert={open_browser}, Telegram={'ok' if sent else 'non'}", flush=True)
-    print(f"  {grab_url}", flush=True)
+    print(f"  Detail capture : {detail}", flush=True)
+    print(f"  Optimea : Telegram={'ok' if sent else 'non'}", flush=True)
+    print(f"  Lien panier : {grab_url}", flush=True)
 
 
-def handle_manomano(url: str, open_browser: bool) -> None:
-    if open_browser:
-        webbrowser.open(url)
+def handle_manomano(url: str, detail: str) -> None:
+    stamp = time.strftime("%d/%m %H:%M:%S")
     msg = (
         "🟢 EN STOCK — ManoMano\n"
         "Midea PortaSplit (~999 €)\n\n"
-        f"Page produit :\n{url}\n\n"
-        "Ajoute au panier depuis le site (ManoMano ne permet pas l'ajout auto)."
+        f"Detecte le {stamp}\n"
+        f"Detail : {detail}\n\n"
+        f"Page produit :\n{url}"
     )
     sent = notify_telegram(msg)
-    print(f"  ManoMano : page ouverte={open_browser}, Telegram={'ok' if sent else 'non'}", flush=True)
+    print(f"  Detail capture : {detail}", flush=True)
+    print(f"  ManoMano : Telegram={'ok' if sent else 'non'}", flush=True)
     print(f"  {url}", flush=True)
 
 
-def run(*, once: bool, interval: int, qty: int, open_browser: bool, only: str | None) -> int:
+def run(*, once: bool, interval: int, qty: int, only: str | None) -> int:
     _load_env()
     session = requests.Session()
     session.headers.update({"User-Agent": UA, "Accept-Language": "fr-FR,fr;q=0.9"})
@@ -191,36 +193,36 @@ def run(*, once: bool, interval: int, qty: int, open_browser: bool, only: str | 
     targets = {"optimea", "manomano"}
     if only:
         targets = {only}
-    done: set[str] = set()
+    # Alerte sur transition (rupture -> stock) pour eviter de spammer chaque minute.
+    alerted: set[str] = set()
 
     while True:
         stamp = time.strftime("%H:%M:%S")
         statuses: list[str] = []
 
-        if "optimea" in targets and "optimea" not in done:
+        if "optimea" in targets:
             in_stock, _, detail = check_optimea(session)
             statuses.append(f"Optimea: {detail}")
-            if in_stock:
+            if in_stock and "optimea" not in alerted:
                 print(f"\n[{stamp}] OPTIMEA EN STOCK !", flush=True)
-                handle_optimea(session, qty, open_browser)
-                done.add("optimea")
+                handle_optimea(qty, detail)
+                alerted.add("optimea")
+            elif not in_stock:
+                alerted.discard("optimea")
 
-        if "manomano" in targets and "manomano" not in done:
+        if "manomano" in targets:
             in_stock, url, detail = check_manomano()
             statuses.append(f"ManoMano: {detail}")
-            if in_stock:
+            if in_stock and "manomano" not in alerted:
                 print(f"\n[{stamp}] MANOMANO EN STOCK !", flush=True)
-                handle_manomano(url or MANOMANO_URL, open_browser)
-                done.add("manomano")
-
-        remaining = targets - done
-        if not remaining:
-            print(f"[{stamp}] Toutes les cibles ont ete signalees. Fin.", flush=True)
-            return 0
+                handle_manomano(url or MANOMANO_URL, detail)
+                alerted.add("manomano")
+            elif not in_stock:
+                alerted.discard("manomano")
 
         print(f"[{stamp}] {' | '.join(statuses)} — prochaine verif dans {interval}s", flush=True)
         if once:
-            return 1
+            return 0
         time.sleep(max(interval, 30))
 
 
@@ -229,15 +231,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--once", action="store_true", help="Une seule passe")
     parser.add_argument("--interval", type=int, default=60, help="Secondes entre verifs (min 30)")
     parser.add_argument("--qty", type=int, default=1, help="Quantite Optimea")
-    parser.add_argument("--no-open", dest="open", action="store_false", help="Ne pas ouvrir le navigateur")
     parser.add_argument("--only", choices=["optimea", "manomano"], help="Surveiller une seule cible")
-    parser.set_defaults(open=True)
     args = parser.parse_args(argv)
     return run(
         once=args.once,
         interval=args.interval,
         qty=args.qty,
-        open_browser=args.open,
         only=args.only,
     )
 

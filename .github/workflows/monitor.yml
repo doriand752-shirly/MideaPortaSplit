@@ -57,7 +57,7 @@ jobs:
 
       - name: Run stock check
         run: |
-          ARGS=(--once --no-browser --export data/snapshot.json)
+          ARGS=(--once --no-browser --no-store-alerts --export data/snapshot.json)
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
             ARGS+=(--dry-run)
           fi
