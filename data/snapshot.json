@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-09T08:31:34.915948+00:00",
+  "checkedAt": "2026-07-09T08:41:18.223005+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -97,22 +97,21 @@
         "climradar",
         "direct"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Amazon: buybox introuvable",
+      "sourceDetail": "ClimRadar: rupture · Site: Amazon buybox: indisponible",
       "checkError": false
     },
     {
       "id": "fnac",
       "retailerName": "Fnac",
       "inStock": false,
-      "price": 989.99,
+      "price": null,
       "url": "https://www.fnac.com/",
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar",
-        "direct"
+        "climradar"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Aucun indicateur fiable detecte",
+      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
       "checkError": false
     },
     {
