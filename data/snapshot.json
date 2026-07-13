@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-13T14:11:21.859264+00:00",
+  "checkedAt": "2026-07-13T14:21:34.642689+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -89,30 +89,28 @@
       "id": "amazon",
       "retailerName": "Amazon France",
       "inStock": false,
-      "price": 849.99,
+      "price": null,
       "url": "https://www.amazon.fr/dp/B0D3PP64JS",
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar",
         "direct"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Amazon buybox: indisponible",
+      "sourceDetail": "Site: Amazon: buybox introuvable",
       "checkError": false
     },
     {
       "id": "fnac",
       "retailerName": "Fnac",
       "inStock": false,
-      "price": null,
+      "price": 989.99,
       "url": "https://www.fnac.com/",
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar",
-        "direct"
+        "climradar"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Aucun indicateur fiable detecte",
+      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
       "checkError": false
     },
     {
