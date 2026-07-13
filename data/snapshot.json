@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-13T03:31:26.524015+00:00",
+  "checkedAt": "2026-07-13T03:41:13.848025+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -96,7 +96,7 @@
       "sources": [
         "direct"
       ],
-      "sourceDetail": "Site: Amazon buybox: indisponible",
+      "sourceDetail": "Site: Amazon: buybox introuvable",
       "checkError": false
     },
     {
