@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-13T07:51:24.434612+00:00",
+  "checkedAt": "2026-07-13T08:01:42.518002+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -96,14 +96,14 @@
       "sources": [
         "direct"
       ],
-      "sourceDetail": "Site: Amazon buybox: indisponible",
+      "sourceDetail": "Site: Amazon: buybox introuvable",
       "checkError": false
     },
     {
       "id": "fnac",
       "retailerName": "Fnac",
       "inStock": false,
-      "price": null,
+      "price": 989.99,
       "url": "https://www.fnac.com/",
       "deliveryEligible": false,
       "lastUpdateMin": null,
