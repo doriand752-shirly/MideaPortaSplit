@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-13T21:51:17.950174+00:00",
+  "checkedAt": "2026-07-13T22:01:45.172054+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -108,10 +108,9 @@
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar",
-        "direct"
+        "climradar"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Aucun indicateur fiable detecte",
+      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
       "checkError": false
     },
     {
