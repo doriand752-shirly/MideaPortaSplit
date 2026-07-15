@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-15T17:21:19.641382+00:00",
+  "checkedAt": "2026-07-15T17:31:37.841293+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -88,15 +88,16 @@
     {
       "id": "amazon",
       "retailerName": "Amazon France",
-      "inStock": false,
-      "price": null,
+      "inStock": true,
+      "price": 1299.99,
       "url": "https://www.amazon.fr/dp/B0D3PP64JS",
-      "deliveryEligible": false,
+      "deliveryEligible": true,
       "lastUpdateMin": null,
       "sources": [
+        "climradar",
         "direct"
       ],
-      "sourceDetail": "Site: Amazon: buybox introuvable",
+      "sourceDetail": "ClimRadar: en stock · Site: Amazon: buybox introuvable · sources divergentes",
       "checkError": false
     },
     {
@@ -242,7 +243,16 @@
       "stockSource": "climradar"
     }
   ],
-  "actionable": [],
+  "actionable": [
+    {
+      "id": "livraison:amazon",
+      "kind": "livraison",
+      "title": "Amazon France",
+      "detail": "Livraison vers 33400 — ClimRadar: en stock · Site: Amazon: buybox introuvable · sources divergentes",
+      "url": "https://www.amazon.fr/dp/B0D3PP64JS",
+      "price": 1299.99
+    }
+  ],
   "dataMode": "cloud",
   "climradarAvailable": true,
   "source": "github-actions",
@@ -273,6 +283,6 @@
     "local:boulanger:17200:boulanger-royan": "out_of_stock",
     "livraison:fnac": "out_of_stock",
     "livraison:manomano": "out_of_stock",
-    "livraison:amazon": "out_of_stock"
+    "livraison:amazon": "in_stock"
   }
 }
