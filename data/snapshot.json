@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-16T14:11:27.441881+00:00",
+  "checkedAt": "2026-07-16T14:21:21.800990+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -104,7 +104,7 @@
       "id": "fnac",
       "retailerName": "Fnac",
       "inStock": false,
-      "price": null,
+      "price": 989.99,
       "url": "https://www.fnac.com/",
       "deliveryEligible": false,
       "lastUpdateMin": null,
