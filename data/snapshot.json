@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-16T14:41:31.922107+00:00",
+  "checkedAt": "2026-07-16T14:51:23.783023+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -104,7 +104,7 @@
       "id": "fnac",
       "retailerName": "Fnac",
       "inStock": false,
-      "price": null,
+      "price": 989.99,
       "url": "https://www.fnac.com/",
       "deliveryEligible": false,
       "lastUpdateMin": null,
@@ -117,15 +117,15 @@
     {
       "id": "manomano",
       "retailerName": "ManoMano",
-      "inStock": true,
+      "inStock": false,
       "price": 999.0,
       "url": "https://www.manomano.fr/p/midea-climatiseur-split-mobile-reversible-froid-chaud-3500w12000btu-wifi-deshumidificateur-ventilateur-jusqua-40m2-kit-fenetre-inclus-83810402",
-      "deliveryEligible": true,
+      "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
         "climradar"
       ],
-      "sourceDetail": "ClimRadar (en stock, MAJ ~10 min)",
+      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
       "checkError": false
     }
   ],
@@ -243,16 +243,7 @@
       "stockSource": "climradar"
     }
   ],
-  "actionable": [
-    {
-      "id": "livraison:manomano",
-      "kind": "livraison",
-      "title": "ManoMano",
-      "detail": "Livraison vers 33400 — ClimRadar (en stock, MAJ ~10 min)",
-      "url": "https://www.manomano.fr/p/midea-climatiseur-split-mobile-reversible-froid-chaud-3500w12000btu-wifi-deshumidificateur-ventilateur-jusqua-40m2-kit-fenetre-inclus-83810402",
-      "price": 999.0
-    }
-  ],
+  "actionable": [],
   "dataMode": "cloud",
   "climradarAvailable": true,
   "source": "github-actions",
@@ -282,7 +273,7 @@
     "local:boulanger:33220:connexion-partenaire-boulanger-pineuilh": "out_of_stock",
     "local:boulanger:17200:boulanger-royan": "out_of_stock",
     "livraison:fnac": "out_of_stock",
-    "livraison:manomano": "in_stock",
+    "livraison:manomano": "out_of_stock",
     "livraison:amazon": "out_of_stock"
   }
 }
