@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-16T14:21:21.800990+00:00",
+  "checkedAt": "2026-07-16T14:31:31.065317+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -89,7 +89,7 @@
       "id": "amazon",
       "retailerName": "Amazon France",
       "inStock": false,
-      "price": null,
+      "price": 873.4,
       "url": "https://www.amazon.fr/dp/B0D3PP64JS",
       "deliveryEligible": false,
       "lastUpdateMin": null,
@@ -97,7 +97,7 @@
         "climradar",
         "direct"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Amazon: buybox introuvable",
+      "sourceDetail": "ClimRadar: rupture · Site: Amazon buybox: indisponible",
       "checkError": false
     },
     {
@@ -173,20 +173,6 @@
       "stockSource": "climradar"
     },
     {
-      "id": "local:castorama:33700:castorama-m-rignac",
-      "storeName": "Castorama Mérignac",
-      "retailerId": "castorama",
-      "location": "MERIGNAC 33700",
-      "postalCode": "33700",
-      "department": "33",
-      "distanceKm": 7.4,
-      "inStock": false,
-      "price": null,
-      "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
       "id": "local:leroy_merlin:33270:leroy-merlin-bouliac-bordeaux",
       "storeName": "Leroy Merlin Bouliac - Bordeaux",
       "retailerId": "leroy_merlin",
@@ -198,6 +184,20 @@
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
       "lastUpdateMin": 0,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:castorama:33700:castorama-m-rignac",
+      "storeName": "Castorama Mérignac",
+      "retailerId": "castorama",
+      "location": "MERIGNAC 33700",
+      "postalCode": "33700",
+      "department": "33",
+      "distanceKm": 7.4,
+      "inStock": false,
+      "price": null,
+      "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
+      "lastUpdateMin": 2,
       "stockSource": "climradar"
     },
     {
