@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-16T12:11:22.475142+00:00",
+  "checkedAt": "2026-07-16T12:21:19.515466+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -103,7 +103,7 @@
       "id": "fnac",
       "retailerName": "Fnac",
       "inStock": false,
-      "price": null,
+      "price": 989.99,
       "url": "https://www.fnac.com/",
       "deliveryEligible": false,
       "lastUpdateMin": null,
@@ -116,15 +116,15 @@
     {
       "id": "manomano",
       "retailerName": "ManoMano",
-      "inStock": false,
-      "price": null,
+      "inStock": true,
+      "price": 999.0,
       "url": "https://www.manomano.fr/p/midea-climatiseur-split-mobile-reversible-froid-chaud-3500w12000btu-wifi-deshumidificateur-ventilateur-jusqua-40m2-kit-fenetre-inclus-83810402",
-      "deliveryEligible": false,
+      "deliveryEligible": true,
       "lastUpdateMin": null,
       "sources": [
         "climradar"
       ],
-      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
+      "sourceDetail": "ClimRadar (en stock, MAJ ~10 min)",
       "checkError": false
     }
   ],
@@ -168,7 +168,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -182,7 +182,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -224,7 +224,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -242,7 +242,16 @@
       "stockSource": "climradar"
     }
   ],
-  "actionable": [],
+  "actionable": [
+    {
+      "id": "livraison:manomano",
+      "kind": "livraison",
+      "title": "ManoMano",
+      "detail": "Livraison vers 33400 — ClimRadar (en stock, MAJ ~10 min)",
+      "url": "https://www.manomano.fr/p/midea-climatiseur-split-mobile-reversible-froid-chaud-3500w12000btu-wifi-deshumidificateur-ventilateur-jusqua-40m2-kit-fenetre-inclus-83810402",
+      "price": 999.0
+    }
+  ],
   "dataMode": "cloud",
   "climradarAvailable": true,
   "source": "github-actions",
@@ -272,7 +281,7 @@
     "local:boulanger:33220:connexion-partenaire-boulanger-pineuilh": "out_of_stock",
     "local:boulanger:17200:boulanger-royan": "out_of_stock",
     "livraison:fnac": "out_of_stock",
-    "livraison:manomano": "out_of_stock",
+    "livraison:manomano": "in_stock",
     "livraison:amazon": "out_of_stock"
   }
 }
