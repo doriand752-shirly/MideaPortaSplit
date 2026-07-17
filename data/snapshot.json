@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-17T16:51:00.234981+00:00",
+  "checkedAt": "2026-07-17T17:01:32.520973+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -97,7 +97,7 @@
         "climradar",
         "direct"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Amazon buybox: indisponible",
+      "sourceDetail": "ClimRadar: rupture · Site: Amazon: buybox introuvable",
       "checkError": false
     },
     {
