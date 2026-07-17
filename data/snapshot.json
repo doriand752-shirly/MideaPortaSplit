@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-17T15:51:04.330921+00:00",
+  "checkedAt": "2026-07-17T16:01:32.393649+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -89,7 +89,7 @@
       "id": "amazon",
       "retailerName": "Amazon France",
       "inStock": false,
-      "price": 949.0,
+      "price": 999.0,
       "url": "https://www.amazon.fr/dp/B0D3PP64JS",
       "deliveryEligible": false,
       "lastUpdateMin": null,
@@ -97,7 +97,7 @@
         "climradar",
         "direct"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Amazon: buybox introuvable",
+      "sourceDetail": "ClimRadar: rupture · Site: Amazon buybox: indisponible",
       "checkError": false
     },
     {
@@ -247,7 +247,7 @@
   "dataMode": "cloud",
   "climradarAvailable": true,
   "source": "github-actions",
-  "lastHeartbeatDate": "2026-07-16",
+  "lastHeartbeatDate": "2026-07-17",
   "alertDates": {
     "local:leroy_merlin:33270:leroy-merlin-bouliac-bordeaux": "2026-07-06",
     "local:boulanger:33140:boulanger-bordeaux-b-gles-villenave-d-ornon": "2026-07-07",
