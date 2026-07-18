@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-18T15:50:54.264423+00:00",
+  "checkedAt": "2026-07-18T16:01:17.483089+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -104,14 +104,15 @@
       "id": "fnac",
       "retailerName": "Fnac",
       "inStock": false,
-      "price": null,
+      "price": 989.99,
       "url": "https://www.fnac.com/",
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar"
+        "climradar",
+        "direct"
       ],
-      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
+      "sourceDetail": "ClimRadar: rupture · Site: Aucun indicateur fiable detecte",
       "checkError": false
     },
     {
@@ -247,7 +248,7 @@
   "dataMode": "cloud",
   "climradarAvailable": true,
   "source": "github-actions",
-  "lastHeartbeatDate": "2026-07-17",
+  "lastHeartbeatDate": "2026-07-18",
   "alertDates": {
     "local:leroy_merlin:33270:leroy-merlin-bouliac-bordeaux": "2026-07-06",
     "local:boulanger:33140:boulanger-bordeaux-b-gles-villenave-d-ornon": "2026-07-07",
