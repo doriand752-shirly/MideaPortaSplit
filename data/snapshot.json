@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-21T21:20:58.138884+00:00",
+  "checkedAt": "2026-07-21T21:31:12.922818+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -109,9 +109,10 @@
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar"
+        "climradar",
+        "direct"
       ],
-      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
+      "sourceDetail": "ClimRadar: rupture · Site: Aucun indicateur fiable detecte",
       "checkError": false
     },
     {
@@ -173,6 +174,34 @@
       "stockSource": "climradar"
     },
     {
+      "id": "local:boulanger:33140:boulanger-bordeaux-b-gles-villenave-d-ornon",
+      "storeName": "Boulanger Bordeaux - Bégles - Villenave D'Ornon",
+      "retailerId": "boulanger",
+      "location": "VILLENAVE D'ORNON 33140",
+      "postalCode": "33140",
+      "department": "33",
+      "distanceKm": 5.5,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:boulanger:33700:boulanger-bordeaux-m-rignac",
+      "storeName": "Boulanger Bordeaux - Mérignac",
+      "retailerId": "boulanger",
+      "location": "MÉRIGNAC 33700",
+      "postalCode": "33700",
+      "department": "33",
+      "distanceKm": 5.9,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
       "id": "local:castorama:33700:castorama-m-rignac",
       "storeName": "Castorama Mérignac",
       "retailerId": "castorama",
@@ -215,6 +244,20 @@
       "stockSource": "climradar"
     },
     {
+      "id": "local:boulanger:33300:boulanger-bordeaux-lac",
+      "storeName": "Boulanger Bordeaux  Lac",
+      "retailerId": "boulanger",
+      "location": "BORDEAUX 33300",
+      "postalCode": "33300",
+      "department": "33",
+      "distanceKm": 8.2,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
       "id": "local:castorama:33310:castorama-bordeaux-lormont",
       "storeName": "Castorama Bordeaux Lormont",
       "retailerId": "castorama",
@@ -225,6 +268,34 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:boulanger:33560:boulanger-bordeaux-sainte-eulalie",
+      "storeName": "Boulanger Bordeaux - Sainte Eulalie",
+      "retailerId": "boulanger",
+      "location": "SAINTE-EULALIE 33560",
+      "postalCode": "33560",
+      "department": "33",
+      "distanceKm": 13.6,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:boulanger:33500:boulanger-bordeaux-libourne",
+      "storeName": "Boulanger Bordeaux - Libourne",
+      "retailerId": "boulanger",
+      "location": "LIBOURNE 33500",
+      "postalCode": "33500",
+      "department": "33",
+      "distanceKm": 31.2,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
       "lastUpdateMin": 2,
       "stockSource": "climradar"
     },
@@ -240,6 +311,62 @@
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
       "lastUpdateMin": 0,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:boulanger:33380:boulanger-biganos-arcachon",
+      "storeName": "Boulanger Biganos - Arcachon",
+      "retailerId": "boulanger",
+      "location": "BIGANOS 33380",
+      "postalCode": "33380",
+      "department": "33",
+      "distanceKm": 34.7,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:boulanger:24700:boulanger-montpon-menesterol",
+      "storeName": "Boulanger Montpon Menesterol",
+      "retailerId": "boulanger",
+      "location": "MONTPON MENESTEROL 24700",
+      "postalCode": "24700",
+      "department": "24",
+      "distanceKm": 62.0,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:boulanger:33220:connexion-partenaire-boulanger-pineuilh",
+      "storeName": "Connexion Partenaire Boulanger  Pineuilh",
+      "retailerId": "boulanger",
+      "location": "PINEUILH 33220",
+      "postalCode": "33220",
+      "department": "33",
+      "distanceKm": 65.9,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:boulanger:17200:boulanger-royan",
+      "storeName": "Boulanger Royan",
+      "retailerId": "boulanger",
+      "location": "ROYAN 17200",
+      "postalCode": "17200",
+      "department": "17",
+      "distanceKm": 96.7,
+      "inStock": false,
+      "price": 999,
+      "productURL": "https://www.boulanger.com/ref/1216685",
+      "lastUpdateMin": 2,
       "stockSource": "climradar"
     }
   ],
