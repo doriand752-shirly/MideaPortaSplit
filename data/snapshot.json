@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-22T02:41:11.437125+00:00",
+  "checkedAt": "2026-07-22T02:50:52.840407+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -89,7 +89,7 @@
       "id": "amazon",
       "retailerName": "Amazon France",
       "inStock": false,
-      "price": 899.0,
+      "price": null,
       "url": "https://www.amazon.fr/dp/B0D3PP64JS",
       "deliveryEligible": false,
       "lastUpdateMin": null,
