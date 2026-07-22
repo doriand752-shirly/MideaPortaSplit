@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-22T09:31:10.161114+00:00",
+  "checkedAt": "2026-07-22T09:41:00.730010+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -109,9 +109,10 @@
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar"
+        "climradar",
+        "direct"
       ],
-      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
+      "sourceDetail": "ClimRadar: rupture · Site: Aucun indicateur fiable detecte",
       "checkError": false
     },
     {
@@ -169,7 +170,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -183,7 +184,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -197,21 +198,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:castorama:33700:castorama-m-rignac",
-      "storeName": "Castorama Mérignac",
-      "retailerId": "castorama",
-      "location": "MERIGNAC 33700",
-      "postalCode": "33700",
-      "department": "33",
-      "distanceKm": 7.4,
-      "inStock": false,
-      "price": null,
-      "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -226,6 +213,20 @@
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
       "lastUpdateMin": 0,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:castorama:33700:castorama-m-rignac",
+      "storeName": "Castorama Mérignac",
+      "retailerId": "castorama",
+      "location": "MERIGNAC 33700",
+      "postalCode": "33700",
+      "department": "33",
+      "distanceKm": 7.4,
+      "inStock": false,
+      "price": null,
+      "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -253,7 +254,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -267,7 +268,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -281,7 +282,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -295,7 +296,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -323,7 +324,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -337,7 +338,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -351,7 +352,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -365,7 +366,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     }
   ],
