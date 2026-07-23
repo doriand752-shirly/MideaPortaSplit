@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-23T02:40:55.711489+00:00",
+  "checkedAt": "2026-07-23T02:51:13.230433+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -89,7 +89,7 @@
       "id": "amazon",
       "retailerName": "Amazon France",
       "inStock": false,
-      "price": 899.0,
+      "price": null,
       "url": "https://www.amazon.fr/dp/B0D3PP64JS",
       "deliveryEligible": false,
       "lastUpdateMin": null,
@@ -109,10 +109,9 @@
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar",
-        "direct"
+        "climradar"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Aucun indicateur fiable detecte",
+      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
       "checkError": false
     },
     {
