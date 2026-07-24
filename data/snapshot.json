@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-24T00:41:01.539584+00:00",
+  "checkedAt": "2026-07-24T00:51:00.593035+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -47,15 +47,15 @@
       "id": "castorama",
       "retailerName": "Castorama",
       "inStock": false,
-      "price": null,
+      "price": 999.0,
       "url": "https://www.castorama.fr/climatiseur-split-midea-reversible-3500w/8431312260509_CAFR.prd",
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
         "direct"
       ],
-      "sourceDetail": "Connexion impossible",
-      "checkError": true
+      "sourceDetail": "Indicateur: « rupture de stock »",
+      "checkError": false
     },
     {
       "id": "leroy_merlin",
