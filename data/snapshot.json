@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-24T18:01:14.167186+00:00",
+  "checkedAt": "2026-07-24T18:10:59.038890+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -104,15 +104,15 @@
       "id": "fnac",
       "retailerName": "Fnac",
       "inStock": false,
-      "price": null,
+      "price": 989.99,
       "url": "https://www.fnac.com/",
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
         "climradar"
       ],
-      "sourceDetail": "Revendeur absent de ClimRadar",
-      "checkError": true
+      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
+      "checkError": false
     },
     {
       "id": "manomano",
