@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-24T08:40:55.499011+00:00",
+  "checkedAt": "2026-07-24T08:50:53.655461+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -104,7 +104,7 @@
       "id": "fnac",
       "retailerName": "Fnac",
       "inStock": false,
-      "price": 989.99,
+      "price": null,
       "url": "https://www.fnac.com/",
       "deliveryEligible": false,
       "lastUpdateMin": null,
@@ -169,7 +169,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -183,7 +183,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -197,7 +197,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -211,7 +211,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -253,7 +253,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -267,7 +267,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -281,7 +281,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -295,7 +295,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -323,7 +323,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -337,7 +337,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -351,7 +351,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -365,7 +365,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     }
   ],
