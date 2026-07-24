@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-24T14:01:18.413625+00:00",
+  "checkedAt": "2026-07-24T14:10:55.201392+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -68,8 +68,8 @@
       "sources": [
         "climradar"
       ],
-      "sourceDetail": "Revendeur absent de ClimRadar",
-      "checkError": true
+      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
+      "checkError": false
     },
     {
       "id": "optimea",
