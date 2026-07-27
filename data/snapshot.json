@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-27T06:51:04.874057+00:00",
+  "checkedAt": "2026-07-27T07:01:25.795259+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -47,15 +47,15 @@
       "id": "castorama",
       "retailerName": "Castorama",
       "inStock": false,
-      "price": 999.0,
+      "price": null,
       "url": "https://www.castorama.fr/climatiseur-split-midea-reversible-3500w/8431312260509_CAFR.prd",
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
         "direct"
       ],
-      "sourceDetail": "Indicateur: « rupture de stock »",
-      "checkError": false
+      "sourceDetail": "Delai depasse",
+      "checkError": true
     },
     {
       "id": "leroy_merlin",
@@ -88,31 +88,30 @@
     {
       "id": "amazon",
       "retailerName": "Amazon France",
-      "inStock": false,
+      "inStock": true,
       "price": 969.99,
       "url": "https://www.amazon.fr/dp/B0D3PP64JS",
-      "deliveryEligible": false,
+      "deliveryEligible": true,
       "lastUpdateMin": null,
       "sources": [
         "climradar",
         "direct"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Amazon buybox: indisponible",
+      "sourceDetail": "ClimRadar: en stock · Site: Amazon buybox: indisponible · sources divergentes",
       "checkError": false
     },
     {
       "id": "fnac",
       "retailerName": "Fnac",
       "inStock": false,
-      "price": 989.99,
+      "price": null,
       "url": "https://www.fnac.com/",
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar",
-        "direct"
+        "climradar"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Aucun indicateur fiable detecte",
+      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
       "checkError": false
     },
     {
@@ -370,7 +369,16 @@
       "stockSource": "climradar"
     }
   ],
-  "actionable": [],
+  "actionable": [
+    {
+      "id": "livraison:amazon",
+      "kind": "livraison",
+      "title": "Amazon France",
+      "detail": "Livraison vers 33400 — ClimRadar: en stock · Site: Amazon buybox: indisponible · sources divergentes",
+      "url": "https://www.amazon.fr/dp/B0D3PP64JS",
+      "price": 969.99
+    }
+  ],
   "dataMode": "cloud",
   "climradarAvailable": true,
   "source": "github-actions",
@@ -401,6 +409,6 @@
     "local:boulanger:17200:boulanger-royan": "out_of_stock",
     "livraison:fnac": "out_of_stock",
     "livraison:manomano": "out_of_stock",
-    "livraison:amazon": "out_of_stock"
+    "livraison:amazon": "in_stock"
   }
 }
