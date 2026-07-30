@@ -37,6 +37,7 @@ retailers:
     expected_price: 999
     checker: amazon
     fetch_mode: climradar
+    enabled: false  # fausses alertes ClimRadar / buybox — desactive pour GitHub Actions
 
   - id: fnac
     name: Fnac
