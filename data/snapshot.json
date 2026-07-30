@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-30T09:50:58.868476+00:00",
+  "checkedAt": "2026-07-30T10:01:35.303801+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -61,15 +61,15 @@
       "id": "leroy_merlin",
       "retailerName": "Leroy Merlin",
       "inStock": false,
-      "price": 999.0,
+      "price": null,
       "url": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
         "climradar"
       ],
-      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
-      "checkError": false
+      "sourceDetail": "Revendeur absent de ClimRadar",
+      "checkError": true
     },
     {
       "id": "optimea",
@@ -104,7 +104,7 @@
       "id": "fnac",
       "retailerName": "Fnac",
       "inStock": false,
-      "price": null,
+      "price": 989.99,
       "url": "https://www.fnac.com/",
       "deliveryEligible": false,
       "lastUpdateMin": null,
@@ -139,9 +139,9 @@
       "department": "33",
       "distanceKm": 3.6,
       "inStock": false,
-      "price": 999,
+      "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 22,
+      "lastUpdateMin": 2,
       "stockSource": "climradar"
     },
     {
@@ -153,9 +153,9 @@
       "department": "33",
       "distanceKm": 4.7,
       "inStock": false,
-      "price": 999,
+      "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 22,
+      "lastUpdateMin": 2,
       "stockSource": "climradar"
     },
     {
@@ -169,6 +169,20 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
+      "lastUpdateMin": 2,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:leroy_merlin:33270:leroy-merlin-bouliac-bordeaux",
+      "storeName": "Leroy Merlin Bouliac - Bordeaux",
+      "retailerId": "leroy_merlin",
+      "location": "BOULIAC 33270",
+      "postalCode": "33270",
+      "department": "33",
+      "distanceKm": 7.4,
+      "inStock": false,
+      "price": null,
+      "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
       "lastUpdateMin": 2,
       "stockSource": "climradar"
     },
@@ -187,20 +201,6 @@
       "stockSource": "climradar"
     },
     {
-      "id": "local:leroy_merlin:33270:leroy-merlin-bouliac-bordeaux",
-      "storeName": "Leroy Merlin Bouliac - Bordeaux",
-      "retailerId": "leroy_merlin",
-      "location": "BOULIAC 33270",
-      "postalCode": "33270",
-      "department": "33",
-      "distanceKm": 7.4,
-      "inStock": false,
-      "price": 999,
-      "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 22,
-      "stockSource": "climradar"
-    },
-    {
       "id": "local:leroy_merlin:33700:leroy-merlin-m-rignac-bordeaux",
       "storeName": "Leroy Merlin Mérignac - Bordeaux",
       "retailerId": "leroy_merlin",
@@ -209,9 +209,9 @@
       "department": "33",
       "distanceKm": 7.6,
       "inStock": false,
-      "price": 999,
+      "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 22,
+      "lastUpdateMin": 2,
       "stockSource": "climradar"
     },
     {
@@ -237,9 +237,9 @@
       "department": "33",
       "distanceKm": 33.2,
       "inStock": false,
-      "price": 999,
+      "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 22,
+      "lastUpdateMin": 2,
       "stockSource": "climradar"
     }
   ],
