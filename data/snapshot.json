@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-07-31T12:21:14.889950+00:00",
+  "checkedAt": "2026-07-31T12:31:18.380418+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -126,7 +126,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 47,
+      "lastUpdateMin": 62,
       "stockSource": "climradar"
     },
     {
@@ -140,7 +140,21 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 47,
+      "lastUpdateMin": 62,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:castorama:33140:castorama-villenave-d-ornon",
+      "storeName": "Castorama Villenave d'Ornon",
+      "retailerId": "castorama",
+      "location": "VILLENAVE D'ORNON 33140",
+      "postalCode": "33140",
+      "department": "33",
+      "distanceKm": 5.3,
+      "inStock": false,
+      "price": null,
+      "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
+      "lastUpdateMin": 2,
       "stockSource": "climradar"
     },
     {
@@ -154,7 +168,21 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 47,
+      "lastUpdateMin": 62,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:castorama:33700:castorama-m-rignac",
+      "storeName": "Castorama Mérignac",
+      "retailerId": "castorama",
+      "location": "MERIGNAC 33700",
+      "postalCode": "33700",
+      "department": "33",
+      "distanceKm": 7.4,
+      "inStock": false,
+      "price": null,
+      "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
+      "lastUpdateMin": 2,
       "stockSource": "climradar"
     },
     {
@@ -168,7 +196,21 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 47,
+      "lastUpdateMin": 62,
+      "stockSource": "climradar"
+    },
+    {
+      "id": "local:castorama:33310:castorama-bordeaux-lormont",
+      "storeName": "Castorama Bordeaux Lormont",
+      "retailerId": "castorama",
+      "location": "LORMONT 33310",
+      "postalCode": "33310",
+      "department": "33",
+      "distanceKm": 10.9,
+      "inStock": false,
+      "price": null,
+      "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
+      "lastUpdateMin": 2,
       "stockSource": "climradar"
     },
     {
@@ -182,7 +224,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 47,
+      "lastUpdateMin": 62,
       "stockSource": "climradar"
     }
   ],
