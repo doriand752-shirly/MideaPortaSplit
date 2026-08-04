@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-08-04T12:31:22.018187+00:00",
+  "checkedAt": "2026-08-04T12:41:03.337851+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -124,9 +124,9 @@
       "department": "33",
       "distanceKm": 3.6,
       "inStock": false,
-      "price": 999,
+      "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 236,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -138,9 +138,9 @@
       "department": "33",
       "distanceKm": 4.7,
       "inStock": false,
-      "price": 999,
+      "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 236,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -180,9 +180,9 @@
       "department": "33",
       "distanceKm": 7.4,
       "inStock": false,
-      "price": 999,
+      "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 236,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -194,9 +194,9 @@
       "department": "33",
       "distanceKm": 7.6,
       "inStock": false,
-      "price": 999,
+      "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 236,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     },
     {
@@ -222,9 +222,9 @@
       "department": "33",
       "distanceKm": 33.2,
       "inStock": false,
-      "price": 999,
+      "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 236,
+      "lastUpdateMin": 7,
       "stockSource": "climradar"
     }
   ],
