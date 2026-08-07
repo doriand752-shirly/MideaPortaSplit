@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-08-07T10:40:55.166203+00:00",
+  "checkedAt": "2026-08-07T10:50:54.737735+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -94,10 +94,9 @@
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar",
-        "direct"
+        "climradar"
       ],
-      "sourceDetail": "ClimRadar: rupture · Site: Aucun indicateur fiable detecte",
+      "sourceDetail": "ClimRadar (rupture, MAJ ~10 min)",
       "checkError": false
     },
     {
@@ -127,7 +126,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 127,
+      "lastUpdateMin": 140,
       "stockSource": "climradar"
     },
     {
@@ -141,7 +140,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 127,
+      "lastUpdateMin": 140,
       "stockSource": "climradar"
     },
     {
@@ -155,7 +154,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 5,
       "stockSource": "climradar"
     },
     {
@@ -169,7 +168,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 5,
       "stockSource": "climradar"
     },
     {
@@ -183,7 +182,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 5,
       "stockSource": "climradar"
     },
     {
@@ -197,7 +196,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 5,
       "stockSource": "climradar"
     },
     {
@@ -211,7 +210,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 127,
+      "lastUpdateMin": 140,
       "stockSource": "climradar"
     },
     {
@@ -225,7 +224,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 127,
+      "lastUpdateMin": 140,
       "stockSource": "climradar"
     },
     {
@@ -239,7 +238,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 5,
       "stockSource": "climradar"
     },
     {
@@ -253,7 +252,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 5,
       "stockSource": "climradar"
     },
     {
@@ -267,7 +266,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 5,
       "stockSource": "climradar"
     },
     {
@@ -281,7 +280,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 5,
       "stockSource": "climradar"
     },
     {
@@ -295,7 +294,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 127,
+      "lastUpdateMin": 140,
       "stockSource": "climradar"
     },
     {
@@ -309,7 +308,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 5,
       "stockSource": "climradar"
     },
     {
@@ -323,7 +322,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 5,
       "stockSource": "climradar"
     },
     {
@@ -337,7 +336,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 5,
       "stockSource": "climradar"
     },
     {
@@ -351,7 +350,7 @@
       "inStock": false,
       "price": 999,
       "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 5,
       "stockSource": "climradar"
     }
   ],
