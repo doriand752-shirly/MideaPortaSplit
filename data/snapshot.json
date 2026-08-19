@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-08-19T10:11:03.203660+00:00",
+  "checkedAt": "2026-08-19T10:21:01.792076+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -126,7 +126,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 96,
+      "lastUpdateMin": 111,
       "stockSource": "climradar"
     },
     {
@@ -140,7 +140,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 96,
+      "lastUpdateMin": 111,
       "stockSource": "climradar"
     },
     {
@@ -154,34 +154,6 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.castorama.fr/climatiseur-portasplit-midea-reversible-3500w/8431312260509_CAFR.prd",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:33140:boulanger-bordeaux-b-gles-villenave-d-ornon",
-      "storeName": "Boulanger Bordeaux - Bégles - Villenave D'Ornon",
-      "retailerId": "boulanger",
-      "location": "VILLENAVE D'ORNON 33140",
-      "postalCode": "33140",
-      "department": "33",
-      "distanceKm": 5.5,
-      "inStock": false,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:33700:boulanger-bordeaux-m-rignac",
-      "storeName": "Boulanger Bordeaux - Mérignac",
-      "retailerId": "boulanger",
-      "location": "MÉRIGNAC 33700",
-      "postalCode": "33700",
-      "department": "33",
-      "distanceKm": 5.9,
-      "inStock": false,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
       "lastUpdateMin": 2,
       "stockSource": "climradar"
     },
@@ -210,7 +182,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 96,
+      "lastUpdateMin": 111,
       "stockSource": "climradar"
     },
     {
@@ -224,21 +196,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 96,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:33300:boulanger-bordeaux-lac",
-      "storeName": "Boulanger Bordeaux  Lac",
-      "retailerId": "boulanger",
-      "location": "BORDEAUX 33300",
-      "postalCode": "33300",
-      "department": "33",
-      "distanceKm": 8.2,
-      "inStock": false,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 111,
       "stockSource": "climradar"
     },
     {
@@ -256,20 +214,6 @@
       "stockSource": "climradar"
     },
     {
-      "id": "local:boulanger:33500:boulanger-bordeaux-libourne",
-      "storeName": "Boulanger Bordeaux - Libourne",
-      "retailerId": "boulanger",
-      "location": "LIBOURNE 33500",
-      "postalCode": "33500",
-      "department": "33",
-      "distanceKm": 31.2,
-      "inStock": false,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
       "id": "local:leroy_merlin:33380:leroy-merlin-biganos-bassin-d-arcachon",
       "storeName": "Leroy Merlin Biganos - Bassin d'Arcachon",
       "retailerId": "leroy_merlin",
@@ -280,7 +224,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 96,
+      "lastUpdateMin": 111,
       "stockSource": "climradar"
     }
   ],
