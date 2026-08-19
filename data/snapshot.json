@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-08-19T10:01:27.972492+00:00",
+  "checkedAt": "2026-08-19T10:11:03.203660+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -126,7 +126,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 86,
+      "lastUpdateMin": 96,
       "stockSource": "climradar"
     },
     {
@@ -140,7 +140,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 86,
+      "lastUpdateMin": 96,
       "stockSource": "climradar"
     },
     {
@@ -210,7 +210,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 86,
+      "lastUpdateMin": 96,
       "stockSource": "climradar"
     },
     {
@@ -224,7 +224,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 86,
+      "lastUpdateMin": 96,
       "stockSource": "climradar"
     },
     {
@@ -256,20 +256,6 @@
       "stockSource": "climradar"
     },
     {
-      "id": "local:boulanger:33560:boulanger-bordeaux-sainte-eulalie",
-      "storeName": "Boulanger Bordeaux - Sainte Eulalie",
-      "retailerId": "boulanger",
-      "location": "SAINTE-EULALIE 33560",
-      "postalCode": "33560",
-      "department": "33",
-      "distanceKm": 13.6,
-      "inStock": false,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
       "id": "local:boulanger:33500:boulanger-bordeaux-libourne",
       "storeName": "Boulanger Bordeaux - Libourne",
       "retailerId": "boulanger",
@@ -294,63 +280,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 86,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:33380:boulanger-biganos-arcachon",
-      "storeName": "Boulanger Biganos - Arcachon",
-      "retailerId": "boulanger",
-      "location": "BIGANOS 33380",
-      "postalCode": "33380",
-      "department": "33",
-      "distanceKm": 34.7,
-      "inStock": false,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:24700:boulanger-montpon-menesterol",
-      "storeName": "Boulanger Montpon Menesterol",
-      "retailerId": "boulanger",
-      "location": "MONTPON MENESTEROL 24700",
-      "postalCode": "24700",
-      "department": "24",
-      "distanceKm": 62.0,
-      "inStock": false,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:33220:connexion-partenaire-boulanger-pineuilh",
-      "storeName": "Connexion Partenaire Boulanger  Pineuilh",
-      "retailerId": "boulanger",
-      "location": "PINEUILH 33220",
-      "postalCode": "33220",
-      "department": "33",
-      "distanceKm": 65.9,
-      "inStock": false,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
-      "stockSource": "climradar"
-    },
-    {
-      "id": "local:boulanger:17200:boulanger-royan",
-      "storeName": "Boulanger Royan",
-      "retailerId": "boulanger",
-      "location": "ROYAN 17200",
-      "postalCode": "17200",
-      "department": "17",
-      "distanceKm": 96.7,
-      "inStock": false,
-      "price": 999,
-      "productURL": "https://www.boulanger.com/ref/1216685",
-      "lastUpdateMin": 2,
+      "lastUpdateMin": 96,
       "stockSource": "climradar"
     }
   ],
