@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-08-25T12:31:20.150160+00:00",
+  "checkedAt": "2026-08-25T12:41:01.065100+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -123,10 +123,10 @@
       "postalCode": "33000",
       "department": "33",
       "distanceKm": 3.6,
-      "inStock": false,
+      "inStock": true,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 237,
+      "lastUpdateMin": 12,
       "stockSource": "climradar"
     },
     {
@@ -140,7 +140,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 237,
+      "lastUpdateMin": 12,
       "stockSource": "climradar"
     },
     {
@@ -182,7 +182,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 237,
+      "lastUpdateMin": 12,
       "stockSource": "climradar"
     },
     {
@@ -196,7 +196,7 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 237,
+      "lastUpdateMin": 12,
       "stockSource": "climradar"
     },
     {
@@ -224,11 +224,20 @@
       "inStock": false,
       "price": null,
       "productURL": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
-      "lastUpdateMin": 237,
+      "lastUpdateMin": 12,
       "stockSource": "climradar"
     }
   ],
-  "actionable": [],
+  "actionable": [
+    {
+      "id": "local:leroy_merlin:33000:leroy-merlin-bordeaux",
+      "kind": "magasin",
+      "title": "Leroy Merlin Bordeaux",
+      "detail": "Retrait magasin — 3.6 km de 33400",
+      "url": "https://www.leroymerlin.fr/produits/climatiseur-split-mobile-reversible-portasplit-midea-par-optimea-93857579.html",
+      "price": null
+    }
+  ],
   "dataMode": "cloud",
   "climradarAvailable": true,
   "source": "github-actions",
@@ -261,6 +270,7 @@
     "livraison:manomano": "out_of_stock",
     "livraison:amazon": "out_of_stock",
     "local:leroy_merlin:33700:leroy-merlin-m-rignac-bordeaux": "out_of_stock",
-    "local:leroy_merlin:33380:leroy-merlin-biganos-bassin-d-arcachon": "out_of_stock"
+    "local:leroy_merlin:33380:leroy-merlin-biganos-bassin-d-arcachon": "out_of_stock",
+    "local:leroy_merlin:33000:leroy-merlin-bordeaux": "in_stock"
   }
 }
