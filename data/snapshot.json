@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-08-28T15:51:04.589529+00:00",
+  "checkedAt": "2026-08-28T16:01:26.311572+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -94,10 +94,10 @@
       "deliveryEligible": false,
       "lastUpdateMin": null,
       "sources": [
-        "climradar"
+        "direct"
       ],
-      "sourceDetail": "Revendeur absent de ClimRadar",
-      "checkError": true
+      "sourceDetail": "Site: Aucun indicateur fiable detecte",
+      "checkError": false
     },
     {
       "id": "manomano",
@@ -162,7 +162,7 @@
   "dataMode": "cloud",
   "climradarAvailable": true,
   "source": "github-actions",
-  "lastHeartbeatDate": "2026-08-27",
+  "lastHeartbeatDate": "2026-08-28",
   "alertDates": {
     "local:leroy_merlin:33270:leroy-merlin-bouliac-bordeaux": "2026-07-06",
     "local:boulanger:33140:boulanger-bordeaux-b-gles-villenave-d-ornon": "2026-07-07",
