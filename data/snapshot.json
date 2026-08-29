@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-08-29T15:51:08.786592+00:00",
+  "checkedAt": "2026-08-29T16:01:35.633839+00:00",
   "postalCode": "33***",
   "radiusKm": 100.0,
   "monitoredDepartments": [
@@ -162,7 +162,7 @@
   "dataMode": "cloud",
   "climradarAvailable": true,
   "source": "github-actions",
-  "lastHeartbeatDate": "2026-08-28",
+  "lastHeartbeatDate": "2026-08-29",
   "alertDates": {
     "local:leroy_merlin:33270:leroy-merlin-bouliac-bordeaux": "2026-07-06",
     "local:boulanger:33140:boulanger-bordeaux-b-gles-villenave-d-ornon": "2026-07-07",
